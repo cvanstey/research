@@ -1,207 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<title>Research Portal</title>
-
-<style>
-body {
-    margin: 0;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    background: #f6f7fb;
-    color: #1a1a1a;
-}
-
-/* NAVBAR */
-nav {
-    background: #111827;
-    padding: 12px 20px;
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-}
-
-nav a {
-    color: #e5e7eb;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-nav a:hover {
-    color: #93c5fd;
-}
-
-/* HEADER */
-header {
-    background: #111827;
-    color: white;
-    padding: 60px 20px;
-    text-align: center;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2.2rem;
-}
-
-header h3 {
-    margin-top: 10px;
-    font-weight: 400;
-    color: #cbd5e1;
-}
-
-header p {
-    max-width: 700px;
-    margin: 20px auto 0;
-    color: #e5e7eb;
-}
-
-/* LAYOUT */
-.container {
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 0 20px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-}
-
-/* CARDS */
-.card {
-    background: white;
-    border-radius: 14px;
-    padding: 20px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    transition: 0.2s;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-.card h2 {
-    margin-top: 0;
-}
-
-.card p {
-    font-size: 0.9rem;
-    color: #555;
-}
-
-.card a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #2563eb;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.card a:hover {
-    text-decoration: underline;
-}
-
-.highlight {
-    border-left: 4px solid #2563eb;
-}
-
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 40px;
-    color: #6b7280;
-}
-</style>
-</head>
-
-<body>
-
-<!-- NAV -->
-<nav>
-    <a href="/">Home</a>
-    <a href="projects/">Projects</a>
-    <a href="maps/">Maps</a>
-    <a href="dashboard/">Dashboards</a>
-    <a href="about/">About</a>
-</nav>
-
-<!-- HEADER -->
-<header>
-    <h1>Research Portal</h1>
-    <h3>Cynthia Anstey — Computational Archival & Spatial Data Systems</h3>
-    <p>
-        Transforming unstructured archival materials into structured datasets,
-        geospatial systems, and interactive research tools using OCR, NLP, and GIS.
-    </p>
-</header>
-
-<!-- MAIN -->
 <div class="container">
+
+    <!-- SYSTEMS -->
+    <h2>Core Research Systems</h2>
     <div class="grid">
 
-        <!-- FEATURED -->
         <div class="card highlight">
-            <h2>Featured Research</h2>
+            <h2>Document Intelligence Systems</h2>
             <p>
-                End-to-end OCR and GIS pipeline reconstructing African American business
-                networks from historical Atlantic City tourism brochures.
+                OCR and document processing pipelines for extracting structured data
+                from historical archives, including layout detection, text reconstruction,
+                and accuracy evaluation.
+            </p>
+            <a href="projects/ocr-pipeline.html">Explore System →</a>
+        </div>
+
+        <div class="card highlight">
+            <h2>Spatial Data & Machine Learning</h2>
+            <p>
+                Geospatial and machine learning pipelines integrating OpenStreetMap,
+                Census data, and statistical modeling to analyze spatial inequality.
+            </p>
+            <a href="projects/nj-food-environment.html">Explore System →</a>
+        </div>
+
+    </div>
+
+    <!-- FEATURED -->
+    <h2 style="margin-top:40px;">Featured Work</h2>
+    <div class="grid">
+
+        <div class="card">
+            <h2>Atlantic City Archive</h2>
+            <p>
+                OCR and GIS pipeline reconstructing African American business networks
+                from 1930s–40s tourism brochures.
             </p>
             <a href="https://cvanstey.github.io/ACBT-Brochures/">View Project →</a>
         </div>
 
-        <!-- PROJECTS -->
+    </div>
+
+    <!-- EXPLORE -->
+    <h2 style="margin-top:40px;">Explore</h2>
+    <div class="grid">
+
         <div class="card">
-            <h2>Research Projects</h2>
-            <p>
-                OCR pipelines, archival data extraction systems, and structured dataset
-                development across multiple research initiatives.
-            </p>
-            <a href="projects/">Explore Projects →</a>
+            <h2>All Projects</h2>
+            <p>Full collection of OCR, data processing, and modeling work.</p>
+            <a href="projects/">Browse Projects →</a>
         </div>
 
         <div class="card">
-    <h2>OCR Pipeline System</h2>
-    <p>
-        Multi-stage document intelligence pipeline using PaddleOCR, OpenCV,
-        and NLP techniques to extract, structure, and evaluate text from
-        historical newspapers and scanned documents.
-    </p>
-    <a href="projects/ocr-pipeline.html">View Project →</a>
-</div>
-        
-        <!-- MAPS -->
-        <div class="card">
-            <h2>Spatial Systems</h2>
-            <p>
-                Interactive GIS-based visualizations and spatial storytelling built from
-                historical and demographic datasets.
-            </p>
+            <h2>Maps</h2>
+            <p>Geospatial visualizations and spatial storytelling tools.</p>
             <a href="maps/">View Maps →</a><br>
             <a href="https://arcg.is/vrjT4">ArcGIS Story Map →</a>
         </div>
 
-        <!-- DASHBOARDS -->
         <div class="card">
-            <h2>Data Tools & Dashboards</h2>
-            <p>
-                Interactive dashboards for exploring structured data using Plotly,
-                Shiny, and web-based analytics tools.
-            </p>
+            <h2>Dashboards</h2>
+            <p>Interactive analytics using Plotly and Shiny.</p>
             <a href="dashboard/">Open Dashboards →</a><br>
             <a href="https://ad77b114-4f90-4cc2-aca5-a98d690d4d32.plotly.app">Plotly App →</a>
         </div>
 
     </div>
+
 </div>
-
-<footer>
-    © Cynthia Anstey — Computational Archival Systems
-</footer>
-
-</body>
-</html>
