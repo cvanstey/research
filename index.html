@@ -6,20 +6,45 @@
 <title>Research Portal</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    background: #f6f7fb;
-    color: #1a1a1a;
+:root {
+    --font-body: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+    --text-xs: 0.85rem;
+    --text-sm: 0.95rem;
+    --text-md: 1.05rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.6rem;
+    --text-2xl: 2.2rem;
+
+    --space-2: 8px;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-12: 48px;
+
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --primary: #2563eb;
+    --border: #e5e7eb;
 }
 
-/* NAVBAR */
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* NAV */
 nav {
     background: #111827;
     padding: 12px 20px;
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 24px;
 }
 
 nav a {
@@ -34,80 +59,108 @@ nav a:hover {
 
 /* HEADER */
 header {
-    background: #111827;
+    background: linear-gradient(135deg, #111827, #1f2937);
     color: white;
-    padding: 60px 20px;
+    padding: 80px 20px;
     text-align: center;
 }
 
 header h1 {
+    font-size: var(--text-2xl);
     margin: 0;
-    font-size: 2.2rem;
 }
 
 header h3 {
-    margin-top: 10px;
+    font-size: var(--text-lg);
     font-weight: 400;
     color: #cbd5e1;
 }
 
 header p {
-    max-width: 700px;
+    max-width: 720px;
     margin: 20px auto 0;
     color: #e5e7eb;
+    font-size: var(--text-md);
 }
 
-/* PAGE LAYOUT */
-.container {
+/* SEARCH */
+.search-bar {
     max-width: 1100px;
-    margin: 40px auto;
+    margin: 30px auto 10px;
     padding: 0 20px;
 }
 
-/* SECTION HEADERS (this restores hierarchy) */
-.section-title {
-    margin: 50px 0 15px;
-    font-size: 1.3rem;
-    color: #111827;
-    border-left: 4px solid #2563eb;
-    padding-left: 10px;
+#search {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: var(--text-md);
+}
+
+/* LAYOUT */
+.container {
+    max-width: 1100px;
+    margin: 20px auto 60px;
+    padding: 0 20px;
+}
+
+/* SECTION */
+.section {
+    margin-top: var(--space-8);
+}
+
+.section-toggle {
+    width: 100%;
+    text-align: left;
+    padding: 14px 0;
+    font-size: var(--text-lg);
+    font-weight: 600;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+}
+
+.section-content {
+    margin-top: var(--space-4);
 }
 
 /* GRID */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
+    gap: 18px;
 }
 
 /* CARDS */
 .card {
-    background: white;
-    border-radius: 14px;
-    padding: 20px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    transition: 0.2s;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: var(--space-6);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
 }
 
 .card h2 {
-    margin-top: 0;
     font-size: 1.1rem;
+    margin-top: 0;
 }
 
 .card p {
-    font-size: 0.9rem;
-    color: #555;
+    font-size: var(--text-sm);
+    color: var(--muted);
 }
 
 .card a {
     display: inline-block;
     margin-top: 10px;
-    color: #2563eb;
+    color: var(--primary);
     text-decoration: none;
     font-weight: 500;
 }
@@ -116,135 +169,173 @@ header p {
     text-decoration: underline;
 }
 
+/* TAGS */
+.tags {
+    margin-top: 10px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.tags span {
+    font-size: var(--text-xs);
+    padding: 2px 8px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+}
+
+/* HIGHLIGHT */
 .highlight {
-    border-left: 4px solid #2563eb;
+    border-left: 4px solid var(--primary);
+    background: #f8fafc;
 }
 
 /* FOOTER */
 footer {
     text-align: center;
     padding: 40px;
-    color: #6b7280;
+    color: var(--muted);
+    font-size: var(--text-sm);
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
 <nav>
-    <a href="/">Home</a>
-    <a href="projects/">Projects</a>
-    <a href="maps/">Maps</a>
-    <a href="dashboard/">Dashboards</a>
-    <a href="about/">About</a>
+    <a href="./">Home</a>
+    <a href="./projects/">Projects</a>
+    <a href="./maps/">Maps</a>
+    <a href="./dashboard/">Dashboards</a>
+    <a href="./about/">About</a>
 </nav>
 
-<!-- HEADER -->
 <header>
     <h1>Research Portal</h1>
-    <h3>Cynthia Anstey — Computational Archival & Spatial Data Systems</h3>
+    <h3>Computational Archival & Spatial Data Systems</h3>
     <p>
-        Transforming unstructured archival materials into structured datasets,
-        geospatial systems, and interactive research tools using OCR, NLP, and GIS.
+        Transforming archival materials into structured datasets, geospatial systems,
+        and computational research infrastructures using OCR, NLP, and GIS.
     </p>
 </header>
 
-<div class="container">
-
-    <!-- ========================= -->
-    <!-- DOCUMENT INTELLIGENCE -->
-    <!-- ========================= -->
-
-    <div class="section-title">Document Intelligence Systems</div>
-
-    <div class="grid">
-
-        <div class="card highlight">
-            <h2>OCR Pipeline System</h2>
-            <p>
-                Multi-stage OCR pipeline using PaddleOCR, OpenCV, and NLP techniques
-                for structured extraction from historical documents.
-            </p>
-            <a href="projects/ocr-pipeline.html">View System →</a>
-        </div>
-
-        <div class="card">
-            <h2>Archival Extraction Workflows</h2>
-            <p>
-                Parsing scanned brochures, newspapers, and archival PDFs into structured datasets.
-            </p>
-            <a href="projects/">Explore →</a>
-        </div>
-
-    </div>
-
-    <!-- ========================= -->
-    <!-- SPATIAL / GIS SYSTEMS -->
-    <!-- ========================= -->
-
-    <div class="section-title">Spatial & GIS Systems</div>
-
-    <div class="grid">
-
-        <div class="card highlight">
-            <h2>Atlantic City Archive</h2>
-            <p>
-                OCR + GIS reconstruction of African American business networks in Atlantic City.
-            </p>
-            <a href="https://cvanstey.github.io/ACBT-Brochures/">Open Project →</a>
-        </div>
-
-        <div class="card">
-            <h2>ArcGIS Story Map</h2>
-            <p>
-                Interactive spatial storytelling and historical mapping.
-            </p>
-            <a href="https://arcg.is/vrjT4">View Map →</a>
-        </div>
-
-        <div class="card">
-            <h2>NJ Food Environment Model</h2>
-            <p>
-                Machine learning + geospatial analysis of food access inequality in New Jersey.
-            </p>
-            <a href="projects/nj-food-environment.html">View Model →</a>
-        </div>
-
-    </div>
-
-    <!-- ========================= -->
-    <!-- DATA SYSTEMS / DASHBOARDS -->
-    <!-- ========================= -->
-
-    <div class="section-title">Data Systems & Dashboards</div>
-
-    <div class="grid">
-
-<div class="card highlight">
-    <h2>🌍 Global Migration Flow Explorer</h2>
-    <p>
-        Interactive migration analytics dashboard using UN DESA 2024 migrant stock data
-        integrated with World Bank population indicators. Features Sankey flow networks,
-        global choropleth maps, time-series tracking (1990–2024), emigration rate modeling,
-        and rank dynamics across countries.
-    </p>
-    <a href="http://127.0.0.1:8050/" target="_blank">Open Dashboard →</a>
+<div class="search-bar">
+    <input id="search" placeholder="Search projects (OCR, GIS, archival, ML...)" />
 </div>
 
-        <div class="card">
-            <h2>Research Projects Index</h2>
-            <p>Full list of computational research and experimental pipelines.</p>
-            <a href="projects/">Browse →</a>
-        </div>
+<div class="container">
 
+<!-- ===================== -->
+<!-- DOCUMENT INTELLIGENCE -->
+<!-- ===================== -->
+
+<div class="section">
+<button class="section-toggle">Document Intelligence Systems</button>
+
+<div class="section-content">
+<div class="grid">
+
+    <div class="card highlight" data-tags="ocr pipeline text extraction archival">
+        <h2>OCR Pipeline System</h2>
+        <p>Multi-stage OCR pipeline using OpenCV, PaddleOCR, and NLP for structured extraction from historical documents.</p>
+        <div class="tags"><span>OCR</span><span>Pipeline</span></div>
+        <a href="projects/ocr-pipeline.html">View System →</a>
     </div>
+
+    <div class="card" data-tags="archival pdf extraction brochures">
+        <h2>Archival Extraction Workflows</h2>
+        <p>Parsing scanned brochures, newspapers, and PDFs into structured datasets.</p>
+        <div class="tags"><span>OCR</span><span>Archives</span></div>
+        <a href="projects/">Explore →</a>
+    </div>
+
+</div>
+</div>
+</div>
+
+<!-- ============== -->
+<!-- GIS SYSTEMS -->
+<!-- ============== -->
+
+<div class="section">
+<button class="section-toggle">Spatial & GIS Systems</button>
+
+<div class="section-content">
+<div class="grid">
+
+    <div class="card highlight" data-tags="gis atlantic city mapping archival">
+        <h2>Atlantic City Archive</h2>
+        <p>OCR + GIS reconstruction of African American business networks in Atlantic City.</p>
+        <div class="tags"><span>GIS</span><span>OCR</span></div>
+        <a href="https://cvanstey.github.io/ACBT-Brochures/">Open Project →</a>
+    </div>
+
+    <div class="card" data-tags="storymap arcgis spatial narrative">
+        <h2>ArcGIS Story Map</h2>
+        <p>Interactive spatial storytelling and historical mapping.</p>
+        <div class="tags"><span>GIS</span><span>Story</span></div>
+        <a href="https://arcg.is/vrjT4">View Map →</a>
+    </div>
+
+</div>
+</div>
+</div>
+
+<!-- ===================== -->
+<!-- DATA SYSTEMS -->
+<!-- ===================== -->
+
+<div class="section">
+<button class="section-toggle">Data Systems & Dashboards</button>
+
+<div class="section-content">
+<div class="grid">
+
+    <div class="card highlight" data-tags="migration dashboard sankey global data">
+        <h2>Global Migration Flow Explorer</h2>
+        <p>Interactive migration analytics dashboard using UN DESA and World Bank datasets.</p>
+        <div class="tags"><span>Dashboard</span><span>ML</span></div>
+        <a href="http://127.0.0.1:8050/" target="_blank">Open Dashboard →</a>
+    </div>
+
+</div>
+</div>
+</div>
 
 </div>
 
 <footer>
-    © Cynthia Anstey — Computational Archival & Spatial Systems
+    © Research Portal — Computational Archival & Spatial Systems
 </footer>
+
+<script>
+// SEARCH FILTER
+const search = document.getElementById("search");
+const cards = document.querySelectorAll(".card");
+
+search.addEventListener("input", (e) => {
+    const q = e.target.value.toLowerCase();
+
+    cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        const tags = (card.dataset.tags || "").toLowerCase();
+
+        card.style.display = (text.includes(q) || tags.includes(q))
+            ? "block"
+            : "none";
+    });
+});
+
+// COLLAPSIBLE SECTIONS
+document.querySelectorAll(".section-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const content = btn.nextElementSibling;
+        content.style.display =
+            content.style.display === "none" ? "block" : "none";
+    });
+});
+</script>
 
 </body>
 </html>
