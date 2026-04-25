@@ -7,158 +7,190 @@
 <title>Research Portal</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-        background: #f6f7fb;
-        color: #1a1a1a;
-        line-height: 1.5;
-    }
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background: #f6f7fb;
+    color: #1a1a1a;
+}
 
-    header {
-        background: #111827;
-        color: white;
-        padding: 60px 20px;
-        text-align: center;
-    }
+/* NAVBAR */
+nav {
+    background: #111827;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
 
-    header h1 {
-        margin: 0;
-        font-size: 2.2rem;
-        font-weight: 700;
-    }
+nav a {
+    color: #e5e7eb;
+    text-decoration: none;
+    font-weight: 500;
+}
 
-    header h3 {
-        margin-top: 10px;
-        font-weight: 400;
-        color: #cbd5e1;
-    }
+nav a:hover {
+    color: #93c5fd;
+}
 
-    header p {
-        max-width: 700px;
-        margin: 20px auto 0;
-        color: #e5e7eb;
-    }
+/* HEADER */
+header {
+    background: #111827;
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
 
-    .container {
-        max-width: 1100px;
-        margin: 40px auto;
-        padding: 0 20px;
-    }
+header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+}
 
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        gap: 20px;
-    }
+header h3 {
+    margin-top: 10px;
+    font-weight: 400;
+    color: #cbd5e1;
+}
 
-    .card {
-        background: white;
-        border-radius: 14px;
-        padding: 20px;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
+header p {
+    max-width: 700px;
+    margin: 20px auto 0;
+    color: #e5e7eb;
+}
 
-    .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    }
+/* LAYOUT */
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
 
-    .card h2 {
-        margin-top: 0;
-        font-size: 1.1rem;
-        color: #111827;
-    }
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
 
-    .card ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
+/* CARDS */
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    transition: 0.2s;
+}
 
-    .card li {
-        margin: 10px 0;
-    }
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
 
-    .card a {
-        text-decoration: none;
-        color: #2563eb;
-        font-weight: 500;
-    }
+.card h2 {
+    margin-top: 0;
+}
 
-    .card a:hover {
-        text-decoration: underline;
-    }
+.card p {
+    font-size: 0.9rem;
+    color: #555;
+}
 
-    .highlight {
-        border-left: 4px solid #2563eb;
-        padding-left: 12px;
-    }
+.card a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
 
-    footer {
-        text-align: center;
-        padding: 40px;
-        color: #6b7280;
-        font-size: 0.9rem;
-    }
+.card a:hover {
+    text-decoration: underline;
+}
+
+.highlight {
+    border-left: 4px solid #2563eb;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 40px;
+    color: #6b7280;
+}
 </style>
 </head>
 
 <body>
 
+<!-- NAV -->
+<nav>
+    <a href="/">Home</a>
+    <a href="projects/">Projects</a>
+    <a href="maps/">Maps</a>
+    <a href="dashboard/">Dashboards</a>
+    <a href="about/">About</a>
+</nav>
+
+<!-- HEADER -->
 <header>
     <h1>Research Portal</h1>
     <h3>Cynthia Anstey — Computational Archival & Spatial Data Systems</h3>
     <p>
-        This site presents computational research projects focused on transforming unstructured archival materials into structured datasets, geospatial systems, and interactive visualizations.
+        Transforming unstructured archival materials into structured datasets,
+        geospatial systems, and interactive research tools using OCR, NLP, and GIS.
     </p>
 </header>
 
+<!-- MAIN -->
 <div class="container">
-
     <div class="grid">
 
-        <!-- Featured -->
+        <!-- FEATURED -->
         <div class="card highlight">
             <h2>Featured Research</h2>
-            <ul>
-                <li><a href="https://cvanstey.github.io/ACBT-Brochures/">Atlantic City Archive (ACBT-Brochures)</a></li>
-            </ul>
+            <p>
+                End-to-end OCR and GIS pipeline reconstructing African American business
+                networks from historical Atlantic City tourism brochures.
+            </p>
+            <a href="https://cvanstey.github.io/ACBT-Brochures/">View Project →</a>
         </div>
 
-        <!-- Projects -->
+        <!-- PROJECTS -->
         <div class="card">
-            <h2>Projects</h2>
-            <ul>
-                <li><a href="projects/">Research Projects</a></li>
-            </ul>
+            <h2>Research Projects</h2>
+            <p>
+                OCR pipelines, archival data extraction systems, and structured dataset
+                development across multiple research initiatives.
+            </p>
+            <a href="projects/">Explore Projects →</a>
         </div>
 
-        <!-- Spatial -->
+        <!-- MAPS -->
         <div class="card">
             <h2>Spatial Systems</h2>
-            <ul>
-                <li><a href="maps/">Geospatial Visualizations</a></li>
-                <li><a href="https://arcg.is/vrjT4">ArcGIS Story Map</a></li>
-            </ul>
+            <p>
+                Interactive GIS-based visualizations and spatial storytelling built from
+                historical and demographic datasets.
+            </p>
+            <a href="maps/">View Maps →</a><br>
+            <a href="https://arcg.is/vrjT4">ArcGIS Story Map →</a>
         </div>
 
-        <!-- Dashboards -->
+        <!-- DASHBOARDS -->
         <div class="card">
             <h2>Data Tools & Dashboards</h2>
-            <ul>
-                <li><a href="dashboard/">Interactive Analytics</a></li>
-                <li><a href="https://ad77b114-4f90-4cc2-aca5-a98d690d4d32.plotly.app">Plotly Dashboard</a></li>
-            </ul>
+            <p>
+                Interactive dashboards for exploring structured data using Plotly,
+                Shiny, and web-based analytics tools.
+            </p>
+            <a href="dashboard/">Open Dashboards →</a><br>
+            <a href="https://ad77b114-4f90-4cc2-aca5-a98d690d4d32.plotly.app">Plotly App →</a>
         </div>
 
     </div>
-
 </div>
 
 <footer>
-    © Research Portal — Computational Archival & Spatial Systems
+    © Cynthia Anstey — Computational Archival Systems
 </footer>
 
 </body>
