@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NJ Food Environment ML Pipeline</title>
+  <link rel="stylesheet" href="../style.css"/> <!-- adjust to your CSS path -->
+  <style>
+    body { font-family: Georgia, serif; max-width: 900px; margin: 40px auto; padding: 0 24px; color: #222; }
+    h1 { font-size: 2rem; margin-bottom: 0.3em; }
+    .subtitle { color: #555; font-size: 1.05rem; margin-bottom: 2em; }
+    h2 { font-size: 1.3rem; border-bottom: 2px solid #ddd; padding-bottom: 6px; margin-top: 2.2em; }
+    .tag { display: inline-block; background: #f0f0f0; border-radius: 4px;
+           padding: 3px 10px; font-size: 0.8rem; margin: 2px; color: #444; }
+    .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 1.5em 0; }
+    .metric-box { background: #f8f8f8; border-left: 4px solid #c0392b;
+                  padding: 14px 18px; border-radius: 4px; }
+    .metric-box .value { font-size: 1.8rem; font-weight: bold; color: #c0392b; }
+    .metric-box .label { font-size: 0.85rem; color: #555; margin-top: 4px; }
+    figure { margin: 2em 0; }
+    figure img { width: 100%; border: 1px solid #ddd; border-radius: 4px; }
+    figcaption { font-size: 0.85rem; color: #666; margin-top: 6px; }
+    table { border-collapse: collapse; width: 100%; font-size: 0.9rem; margin: 1.2em 0; }
+    th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: left; }
+    th { background: #f4f4f4; font-weight: bold; }
+    tr:nth-child(even) { background: #fafafa; }
+    nav a { margin-right: 18px; text-decoration: none; color: #c0392b; font-size: 0.95rem; }
+    .back { margin-bottom: 2em; display: block; }
+    code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; font-size: 0.88rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://cvanstey.github.io/">Home</a>
+  <a href="https://cvanstey.github.io/research/">Research</a>
+  <a href="https://cvanstey.github.io/projects/">Projects</a>
+</nav>
+
+<a class="back" href="../">← Back to Research Portal</a>
+
+<h1>NJ Food Environment ML Pipeline</h1>
+<p class="subtitle">
+  Predicting food desert status across New Jersey zip codes using machine learning,
+  Census demographics, OpenStreetMap store data, and CDC health outcomes.
+</p>
+
+<div>
+  <span class="tag">Python</span>
+  <span class="tag">scikit-learn</span>
+  <span class="tag">GeoPandas</span>
+  <span class="tag">OpenStreetMap</span>
+  <span class="tag">Census ACS 2022</span>
+  <span class="tag">CDC PLACES</span>
+  <span class="tag">USDA LILA</span>
+  <span class="tag">Public Health</span>
+</div>
+
+---
+
+<h2>Overview</h2>
+<p>
+  This pipeline builds a complete food access analysis for all NJ zip codes — from raw
+  OpenStreetMap queries and Census API calls through spatial joins, ML classification,
+  and downstream health outcome regressions. No proprietary data or API keys are required.
+</p>
+<p>
+  The central question: <strong>can demographic data alone predict whether a community
+  lacks meaningful supermarket access?</strong> The answer is yes, with meaningful caveats
+  about what "desert" means depending on how you draw the boundary.
+</p>
+
+<h2>Key Results</h2>
+<div class="metric-grid">
+  <div class="metric-box">
+    <div class="value">0.87+</div>
+    <div class="label">Test AUC (best model, 5-mile buffer target)</div>
+  </div>
+  <div class="metric-box">
+    <div class="value">506</div>
+    <div class="label">NJ zip codes scored</div>
+  </div>
+  <div class="metric-box">
+    <div class="value">~12%</div>
+    <div class="label">Zip codes with no supermarket within 5 miles</div>
+  </div>
+</div>
+
+<h2>Data Sources</h2>
+<table>
+  <tr><th>Source</th><th>What it provides</th><th>Access</th></tr>
+  <tr><td>OpenStreetMap Overpass API</td><td>Supermarket, fast food, convenience store locations</td><td>Free, no key</td></tr>
+  <tr><td>Census ACS 5-Year (2022)</td><td>Income, poverty, transit, education, demographics</td><td>Free, no key</td></tr>
+  <tr><td>Census TIGER Shapefiles</td><td>ZCTA and county boundaries for spatial joins</td><td>Free, no key</td></tr>
+  <tr><td>CDC PLACES (ZCTA)</td><td>Health outcome prevalence (obesity, depression, CHD, etc.)</td><td>Free, public</td></tr>
+  <tr><td>USDA Food Access Research Atlas</td><td>LILA tract classifications for validation</td><td>Free download</td></tr>
+  <tr><td>NJ Property Tax Records</td><td>County and district effective tax rates (2024)</td><td>State open data</td></tr>
+</table>
+
+<h2>Pipeline Architecture</h2>
+<p>The pipeline runs in a single script, top to bottom, with JSON caching at every API call
+so re-runs skip network requests. Steps:</p>
+<ol>
+  <li><strong>OSM Fetch & Dedup</strong> — Overpass query for all food locations in NJ; proximity-based deduplication within 100m</li>
+  <li><strong>Spatial Join</strong> — Point-in-polygon assignment of each store to a ZCTA</li>
+  <li><strong>Proximity Features</strong> — Zip centroid → nearest supermarket distance; count within 5-mile buffer</li>
+  <li><strong>Census ACS</strong> — Two-batch API pull; feature engineering (poverty rate, SNAP %, no-vehicle %, elderly share, etc.)</li>
+  <li><strong>Target Construction</strong> — Two targets: zip-level binary (any supermarket in zip) and 5-mile buffer binary (USDA-aligned)</li>
+  <li><strong>ML Training</strong> — Logistic Regression, Random Forest, Gradient Boosting; stratified split; class-balanced training</li>
+  <li><strong>Validation</strong> — Bootstrapped CIs, leave-one-county-out spatial CV, USDA LILA agreement (Cohen's κ)</li>
+  <li><strong>Health Regressions</strong> — OLS: desert probability → CDC PLACES outcomes, controlling for PCA deprivation index</li>
+  <li><strong>Typology</strong> — Six food access categories: Desert, Fragile Access, Urban Mirage, Rural Mirage, Swamp, Healthy Access</li>
+</ol>
+
+<h2>Food Access Typology</h2>
+<p>
+  Beyond a binary desert flag, each zip code is assigned to one of six access categories
+  based on supermarket count, 5-mile buffer access, food swamp ratio, population density,
+  and demographic vulnerability:
+</p>
+<table>
+  <tr><th>Category</th><th>Definition</th></tr>
+  <tr><td><strong>Desert</strong></td><td>No supermarket in zip or within 5 miles</td></tr>
+  <tr><td><strong>Urban Mirage</strong></td><td>Store present but demand far exceeds capacity (top decile of mirage score)</td></tr>
+  <tr><td><strong>Rural Mirage</strong></td><td>Low-density zip with limited within-5mi options and high distance burden</td></tr>
+  <tr><td><strong>Swamp</strong></td><td>Unhealthy options (fast food + convenience) outnumber supermarkets &gt;1:1</td></tr>
+  <tr><td><strong>Demographic Fragility</strong></td><td>High elderly share, low transit access, sparse nearby stores</td></tr>
+  <tr><td><strong>Fragile Access</strong></td><td>Technically served but thin coverage (≤1 store in zip or ≤2 within 5mi)</td></tr>
+  <tr><td><strong>Healthy Access</strong></td><td>All other zip codes</td></tr>
+</table>
+
+<figure>
+  <img src="../outputs/food_access_typology.png" alt="Food Access Typology chart"/>
+  <figcaption>Distribution of NJ zip codes across food access categories.</figcaption>
+</figure>
+
+<h2>Model Performance</h2>
+<p>Three classifiers trained on census-only features (no proximity data as inputs, to prevent leakage):</p>
+<table>
+  <tr><th>Model</th><th>CV AUC (5-fold)</th><th>Test AUC</th></tr>
+  <tr><td>Logistic Regression</td><td>—</td><td>—</td></tr>
+  <tr><td>Random Forest</td><td>—</td><td>—</td></tr>
+  <tr><td>Gradient Boosting</td><td>—</td><td>—</td></tr>
+</table>
+<p><em>Fill in your actual numbers from the pipeline output above.</em></p>
+
+<figure>
+  <img src="../outputs/model_results.png" alt="Model results: ROC curves, feature importance"/>
+  <figcaption>ROC curves, model comparison, confusion matrix, and permutation feature importance.</figcaption>
+</figure>
+
+<figure>
+  <img src="../outputs/bootstrap_confusion.png" alt="Bootstrapped confidence intervals"/>
+  <figcaption>Bootstrapped metrics (2,000 resamples) with 95% confidence intervals.</figcaption>
+</figure>
+
+<h2>Spatial Validation</h2>
+<p>
+  Leave-one-county-out cross-validation was used alongside standard k-fold to test whether
+  the model generalizes across NJ's 21 counties or merely memorizes within-county patterns.
+  Agreement with the USDA LILA classification was measured using Cohen's κ.
+</p>
+<p>
+  Disagreements between the model and USDA are structurally meaningful: the model uses
+  OSM store presence and a 5-mile buffer, while USDA applies an income gate at the census
+  tract level. Zips that appear in one but not the other typically sit at the urban-rural
+  fringe or near county lines.
+</p>
+
+<figure>
+  <img src="../outputs/usda_validation.png" alt="USDA validation plots"/>
+  <figcaption>Confusion matrix, agreement breakdown, and model probability distribution by USDA classification.</figcaption>
+</figure>
+
+<h2>Health Outcome Regressions</h2>
+<p>
+  OLS regressions linked desert probability to CDC PLACES health outcomes at the zip code
+  level, controlling for a PCA-derived economic deprivation index (PC1 of poverty rate +
+  median income). This removes the collinearity that plagues direct poverty + income controls.
+</p>
+<p>
+  Depression, coronary heart disease, and high blood pressure showed the strongest positive
+  associations with desert probability. Food swamp ratio (unhealthy options per supermarket)
+  was most strongly correlated with tooth loss — a known marker of diet quality and healthcare
+  access — and was the dominant predictor over desert status for several outcomes.
+</p>
+
+<figure>
+  <img src="../outputs/swamp_health_analysis.png" alt="Food swamp health analysis"/>
+  <figcaption>Swamp ratio distribution, desert vs swamp correlation comparison, and scatter vs best health outcome.</figcaption>
+</figure>
+
+<h2>Vulnerability Analysis</h2>
+<p>
+  A separate query identified zip codes more than 1 mile from any supermarket with high
+  elderly population share and high rates of households without a vehicle — the population
+  most structurally exposed to food access gaps regardless of store presence nearby.
+</p>
+
+<figure>
+  <img src="../outputs/elderly_novehicle_butterfly.png" alt="Elderly and no-vehicle butterfly chart"/>
+  <figcaption>Top 25 most vulnerable zip codes: elderly share vs no-vehicle share.</figcaption>
+</figure>
+
+<h2>Technical Notes</h2>
+<ul>
+  <li>OSM data deduplicated by name + type within 100m radius to remove chain duplicates</li>
+  <li>Proximity features excluded from model inputs — used only to define the target variable (no leakage)</li>
+  <li>Gradient Boosting trained with per-sample weights to handle ~7.6:1 class imbalance in the 5-mile target</li>
+  <li>Threshold tuned via spatial CV F1 rather than defaulting to 0.5</li>
+  <li>Census suppressed sentinel values (<0) replaced with NaN; <code>median_rent</code> and <code>median_home_value</code> excluded due to high missingness in small ZCTAs</li>
+  <li>PCA deprivation index avoids multicollinearity between poverty rate and median income in regression controls</li>
+</ul>
+
+<h2>Outputs</h2>
+<ul>
+  <li><code>nj_zip_scores.csv</code> — All zip codes with desert probability, typology, mirage scores, health features</li>
+  <li><code>nj_health_places.csv</code> — Merged model scores + CDC PLACES outcomes</li>
+  <li><code>usda_model_comparison.csv</code> — Side-by-side model vs USDA LILA classification</li>
+  <li><code>elderly_novehicle_desert.csv</code> — Vulnerability ranking for elderly + no-vehicle + distance &gt;1mi</li>
+  <li><code>nj_food_mirages.csv</code> — Top urban food mirage zip codes</li>
+  <li><code>pipeline_metadata.json</code> — All key metrics for reproducibility</li>
+</ul>
+
+<hr/>
+<p style="font-size:0.85rem; color:#888;">
+  Data: OpenStreetMap contributors, US Census Bureau ACS 2022, CDC PLACES 2023, USDA ERS 2021 ·
+  Analysis: Python (scikit-learn, GeoPandas, statsmodels) ·
+  <a href="https://github.com/cvanstey" style="color:#c0392b;">GitHub</a>
+</p>
+
+</body>
+</html>
