@@ -1,40 +1,411 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — Cynthia Anstey</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About — Cynthia Anstey</title>
 
-    :root {
-      --ink: #1a1a18;
-      --ink-muted: #5a5a55;
-      --ink-faint: #9a9a92;
-      --paper: #f8f6f0;
-      --paper-warm: #f0ede4;
-      --accent: #2a5f4a;
-      --accent-light: #e1f0e8;
-      --rule: rgba(42, 95, 74, 0.18);
-      --serif: 'Libre Baskerville', Georgia, serif;
-      --sans: 'DM Sans', system-ui, sans-serif;
-    }
+<style>
+:root {
+    --font-body: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    --text-xs: 0.85rem;
+    --text-sm: 0.95rem;
+    --text-md: 1.05rem;
+    --text-lg: 1.25rem;
+    --text-2xl: 2.2rem;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --primary: #2563eb;
+    --border: #e5e7eb;
+}
 
-    html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
 
-    body {
-      font-family: var(--sans);
-      background: var(--paper);
-      color: var(--ink);
-      line-height: 1.7;
-      font-size: 16px;
-    }
+nav {
+    background: #111827;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
 
-    /* ── NAV ── */
-    nav {
+nav a { color: #e5e7eb; text-decoration: none; font-weight: 500; }
+nav a:hover { color: #93c5fd; }
+nav a.active { color: #93c5fd; }
+
+header {
+    background: linear-gradient(135deg, #111827, #1f2937);
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+header h1 { font-size: var(--text-2xl); margin: 0; }
+header h3 { font-size: var(--text-lg); font-weight: 400; color: #cbd5e1; }
+header p {
+    max-width: 720px;
+    margin: 20px auto 0;
+    color: #e5e7eb;
+    font-size: var(--text-md);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 40px auto 60px;
+    padding: 0 20px;
+}
+
+.section { margin-top: var(--space-8); }
+
+.section-toggle {
+    width: 100%;
+    text-align: left;
+    padding: 14px 0;
+    font-size: var(--text-lg);
+    font-weight: 600;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+}
+
+.section-content { margin-top: var(--space-4); }
+
+/* PROSE CARD */
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: var(--space-6);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+.card p {
+    font-size: var(--text-sm);
+    color: var(--muted);
+    margin: 0 0 12px;
+    max-width: 780px;
+}
+
+.card p:last-child { margin-bottom: 0; }
+
+/* BILINGUAL */
+.bilingual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+
+@media (max-width: 560px) { .bilingual { grid-template-columns: 1fr; } }
+
+.bilingual .lang-label {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 6px;
+    display: block;
+}
+
+.bilingual p { font-style: italic; font-size: var(--text-sm); color: var(--muted); margin: 0; }
+
+/* BLOCKQUOTE */
+blockquote {
+    border-left: 4px solid var(--primary);
+    background: #f8fafc;
+    border-radius: 0 12px 12px 0;
+    margin: 18px 0 0;
+    padding: 14px 18px;
+}
+
+blockquote p { font-style: italic; color: var(--muted); font-size: var(--text-sm); margin: 0 0 6px; }
+blockquote cite { font-size: var(--text-xs); color: #9ca3af; font-style: normal; }
+
+/* SKILLS GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: var(--space-6);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+.skill-card h2 {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin: 0 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+}
+
+.skill-card ul { list-style: none; margin: 0; padding: 0; }
+.skill-card ul li { font-size: var(--text-sm); color: var(--muted); padding: 3px 0; }
+
+/* TIMELINE */
+.timeline-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0 var(--space-6);
+}
+
+.tl-row {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: baseline;
+}
+
+.tl-row:last-child { border-bottom: none; }
+.tl-year { font-size: var(--text-xs); color: var(--muted); }
+
+.tl-body h3 {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    margin: 0 0 3px;
+    color: var(--text);
+}
+
+.tl-body p { font-size: var(--text-xs); color: var(--muted); margin: 0; }
+
+/* CONTACT */
+.contact-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+
+.contact-links a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: var(--text-sm);
+    border: 1px solid var(--border);
+    padding: 6px 16px;
+    border-radius: 8px;
+    background: var(--surface);
+    transition: background 0.15s;
+}
+
+.contact-links a:hover { background: #eff6ff; }
+
+footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: var(--text-sm);
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <a href="/research/">Home</a>
+    <a href="/research/about/" class="active">About</a>
+    <a href="/research/projects/">Projects</a>
+    <a href="/research/maps/">Maps</a>
+    <a href="/research/dashboard/">Dashboards</a>
+</nav>
+
+<header>
+    <h1>Cynthia Anstey</h1>
+    <h3>Data Scientist · Oral Historian · Computational Archivist</h3>
+    <p>
+        Combining spatial data, census records, and machine learning with archival methods
+        and oral history practice to surface the communities most often left out of the picture.
+    </p>
+</header>
+
+<div class="container">
+
+<!-- BIO -->
+<div class="section">
+<button class="section-toggle">About Me</button>
+<div class="section-content">
+    <div class="card">
+        <p>
+            I graduated with a degree in Literature from Stockton University in 2022, then returned to earn
+            a Master of Arts in American Studies in December 2024. I'm currently completing my Master of Science
+            in Data Science and Analytics at Stockton. Fluent in both English and Italian, I approach data
+            the way I approach texts — with close reading, historical context, and a commitment to the
+            communities whose lives the numbers represent.
+        </p>
+        <p>
+            My background in technical support gave me early hands-on experience with data: extracting,
+            transforming, and loading across systems long before I had formal statistical training.
+            Today I work primarily in R and Python, alongside SQL and geospatial tooling. As an oral history
+            practitioner, projects have spanned photo restoration, transcription, translation, digital archiving,
+            grant writing, and spatial and predictive modeling.
+        </p>
+        <div class="bilingual">
+            <div>
+                <span class="lang-label">English</span>
+                <p>"I think critically and creatively — whether I'm reading a census table or a nineteenth-century letter. The goal is always the same: to notice what would otherwise go unseen."</p>
+            </div>
+            <div>
+                <span class="lang-label">Italiano</span>
+                <p>"Penso in modo critico e creativo — che si tratti di leggere una tabella del censimento o una lettera dell'Ottocento. L'obiettivo è sempre lo stesso: notare ciò che altrimenti passerebbe inosservato."</p>
+            </div>
+        </div>
+    </div>
+
+    <blockquote>
+        <p>"The greatest value of a picture is when it forces us to notice what we never expected to see."</p>
+        <cite>— John Tukey, mathematician</cite>
+    </blockquote>
+</div>
+</div>
+
+<!-- SKILLS -->
+<div class="section">
+<button class="section-toggle">Skills & Tools</button>
+<div class="section-content">
+    <div class="grid">
+        <div class="skill-card">
+            <h2>Languages</h2>
+            <ul>
+                <li>R</li>
+                <li>Python</li>
+                <li>SQL</li>
+                <li>HTML / CSS</li>
+            </ul>
+        </div>
+        <div class="skill-card">
+            <h2>Data & Analysis</h2>
+            <ul>
+                <li>Spatial / GIS analysis</li>
+                <li>Predictive modeling</li>
+                <li>ETL pipelines</li>
+                <li>Excel (advanced)</li>
+                <li>OCR & NLP</li>
+            </ul>
+        </div>
+        <div class="skill-card">
+            <h2>Data Sources</h2>
+            <ul>
+                <li>OpenStreetMap / Overpass</li>
+                <li>Census ACS / TIGER</li>
+                <li>USDA FARA</li>
+                <li>GTFS transit feeds</li>
+                <li>CDC PLACES</li>
+            </ul>
+        </div>
+        <div class="skill-card">
+            <h2>Humanistic Methods</h2>
+            <ul>
+                <li>Oral history</li>
+                <li>Archival research</li>
+                <li>Transcription & translation</li>
+                <li>Grant writing</li>
+                <li>Photo restoration</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- EDUCATION -->
+<div class="section">
+<button class="section-toggle">Education & Milestones</button>
+<div class="section-content">
+    <div class="timeline-card">
+        <div class="tl-row">
+            <span class="tl-year">In progress</span>
+            <div class="tl-body">
+                <h3>M.S. Data Science & Analytics — Stockton University</h3>
+                <p>Spatial food access modeling and health outcome prediction across NJ ZIP codes.</p>
+            </div>
+        </div>
+        <div class="tl-row">
+            <span class="tl-year">May 2026</span>
+            <div class="tl-body">
+                <h3>Graduate Symposium — Predicting Food Access in New Jersey</h3>
+                <p>Presented with Dr. Robert Olsen at Stockton's Data Science & Strategic Analytics Symposium.</p>
+            </div>
+        </div>
+        <div class="tl-row">
+            <span class="tl-year">Dec 2024</span>
+            <div class="tl-body">
+                <h3>M.A. American Studies — Stockton University</h3>
+                <p>Oral history, community archives, and digital preservation.</p>
+            </div>
+        </div>
+        <div class="tl-row">
+            <span class="tl-year">2022</span>
+            <div class="tl-body">
+                <h3>B.A. Literature — Stockton University</h3>
+                <p>Close reading, textual analysis, and cultural history.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- CONTACT -->
+<div class="section">
+<button class="section-toggle">Contact</button>
+<div class="section-content">
+    <div class="card">
+        <p>Open to research collaborations, oral history projects, data consulting, and conversations about food access, public health, or community archives.</p>
+        <div class="contact-links">
+            <a href="https://www.linkedin.com/in/cvanstey/" target="_blank">LinkedIn →</a>
+            <a href="https://github.com/cvanstey" target="_blank">GitHub →</a>
+            <a href="https://cvanstey.github.io/stuckieboss">Portfolio →</a>
+        </div>
+    </div>
+</div>
+</div>
+
+</div>
+
+<footer>
+    © Research Portal — Computational Archival & Spatial Systems
+</footer>
+
+<script>
+document.querySelectorAll(".section-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const content = btn.nextElementSibling;
+        content.style.display =
+            content.style.display === "none" ? "block" : "none";
+    });
+});
+</script>
+
+</body>
+</html>    nav {
       position: sticky;
       top: 0;
       z-index: 100;
