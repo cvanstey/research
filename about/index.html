@@ -1,15 +1,551 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>About</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Cynthia Anstey</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a18;
+      --ink-muted: #5a5a55;
+      --ink-faint: #9a9a92;
+      --paper: #f8f6f0;
+      --paper-warm: #f0ede4;
+      --accent: #2a5f4a;
+      --accent-light: #e1f0e8;
+      --rule: rgba(42, 95, 74, 0.18);
+      --serif: 'Libre Baskerville', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--paper);
+      border-bottom: 0.5px solid var(--rule);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--ink-muted);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 5rem 2rem 3.5rem;
+      max-width: 760px;
+      margin: 0 auto;
+      border-bottom: 0.5px solid var(--rule);
+    }
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--ink-faint);
+      font-style: italic;
+      font-family: var(--serif);
+      margin-bottom: 1.75rem;
+    }
+    .hero-lead {
+      font-size: 17px;
+      color: var(--ink-muted);
+      line-height: 1.75;
+      max-width: 640px;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── SECTION ── */
+    section {
+      padding: 3rem 0;
+      border-bottom: 0.5px solid var(--rule);
+    }
+    section:last-child { border-bottom: none; }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+      line-height: 1.3;
+    }
+
+    p {
+      color: var(--ink-muted);
+      margin-bottom: 1rem;
+      max-width: 640px;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── BILINGUAL BLOCK ── */
+    .bilingual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 0.5px solid var(--rule);
+    }
+    @media (max-width: 580px) { .bilingual { grid-template-columns: 1fr; } }
+    .bilingual-col .lang-tag {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .bilingual-col p {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.8;
+    }
+
+    /* ── RESEARCH CARD ── */
+    .research-card {
+      background: var(--paper-warm);
+      border: 0.5px solid var(--rule);
+      border-radius: 4px;
+      padding: 1.5rem 1.75rem;
+      margin: 1.5rem 0;
+    }
+    .research-card .rc-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+    .research-card .rc-meta {
+      font-size: 12px;
+      color: var(--ink-faint);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.85rem;
+    }
+    .research-card p {
+      font-size: 14px;
+      margin-bottom: 0.75rem;
+    }
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 1rem;
+    }
+    .tag {
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      padding: 3px 10px;
+      border: 0.5px solid var(--rule);
+      border-radius: 2px;
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    /* ── SKILLS GRID ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .skill-group {}
+    .skill-group .sg-head {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 0.5px solid var(--rule);
+    }
+    .skill-group ul {
+      list-style: none;
+      font-size: 13.5px;
+      color: var(--ink-muted);
+    }
+    .skill-group ul li {
+      padding: 3px 0;
+    }
+    .skill-group ul li::before {
+      content: "—";
+      color: var(--accent);
+      margin-right: 6px;
+      font-size: 11px;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline { margin-top: 1.25rem; }
+    .tl-item {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 1.25rem;
+      padding: 0.85rem 0;
+      border-bottom: 0.5px solid var(--rule);
+      align-items: baseline;
+    }
+    .tl-item:last-child { border-bottom: none; }
+    .tl-year {
+      font-size: 12px;
+      color: var(--ink-faint);
+      letter-spacing: 0.05em;
+      padding-top: 2px;
+    }
+    .tl-body {}
+    .tl-title {
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+    .tl-desc {
+      font-size: 13px;
+      color: var(--ink-muted);
+      margin: 0;
+    }
+
+    /* ── CONTACT ── */
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+    .contact-link {
+      font-size: 13px;
+      color: var(--accent);
+      text-decoration: none;
+      border: 0.5px solid var(--rule);
+      padding: 6px 14px;
+      border-radius: 2px;
+      transition: background 0.15s;
+      letter-spacing: 0.03em;
+    }
+    .contact-link:hover { background: var(--accent-light); }
+
+    /* ── QUOTE ── */
+    blockquote {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--ink-muted);
+      border-left: 2px solid var(--accent);
+      padding: 0.5rem 0 0.5rem 1.5rem;
+      margin: 2rem 0;
+      line-height: 1.7;
+    }
+    blockquote cite {
+      display: block;
+      font-size: 12px;
+      font-style: normal;
+      letter-spacing: 0.06em;
+      color: var(--ink-faint);
+      margin-top: 0.5rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      font-size: 12px;
+      color: var(--ink-faint);
+      letter-spacing: 0.05em;
+      border-top: 0.5px solid var(--rule);
+      margin-top: 2rem;
+    }
+  </style>
 </head>
 <body>
-  <h1>About This Research</h1>
-  <p>
-    This portal focuses on computational archival systems, GIS workflows,
-    and spatial data research applied to public infrastructure and equity.
-  </p>
 
-  <a href="/">Back Home</a>
+<nav>
+  <a class="nav-brand" href="#">Cynthia Anstey</a>
+  <ul class="nav-links">
+    <li><a href="#" class="active">About</a></li>
+    <li><a href="#">Research</a></li>
+    <li><a href="#">Projects</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <p class="hero-eyebrow">About / Profilo</p>
+  <h1>Data Scientist &amp;<br><em>Oral Historian</em></h1>
+  <p class="hero-subtitle">Stockton University · Data Science &amp; Strategic Analytics, M.S. (in progress)</p>
+  <p class="hero-lead">
+    I build ZIP-code-level analyses of food access, health outcomes, and socioeconomic conditions
+    in New Jersey — combining spatial data, census records, and machine learning to surface the communities
+    most often left out of the picture.
+  </p>
+</div>
+
+<main class="content">
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">Background</p>
+    <h2>Critical thinking. Creative method. Real-world impact.</h2>
+    <p>
+      I graduated with a degree in Literature from Stockton University in 2022, then returned to earn a
+      Master of Arts in American Studies in December 2024. I'm currently completing my Master of Science
+      in Data Science and Analytics at Stockton. Fluent in both English and Italian, I approach data
+      the way I approach texts — with close reading, historical context, and a commitment to the
+      communities whose lives the numbers represent.
+    </p>
+    <p>
+      My background in technical support gave me early hands-on experience with data — extracting,
+      transforming, and loading it across systems long before I had formal statistical training.
+      Today I work primarily in R and Python, alongside SQL and geospatial tooling, to do the same
+      work at a larger and more rigorous scale.
+    </p>
+    <p>
+      As an oral history practitioner, I believe preservation and analysis are two sides of the same
+      coin. Projects have spanned photo restoration, transcription, translation, digital archiving,
+      grant writing, and now — increasingly — spatial and predictive modeling.
+    </p>
+
+    <div class="bilingual">
+      <div class="bilingual-col">
+        <span class="lang-tag">English</span>
+        <p>
+          "I think critically and creatively — whether I'm reading a census table or a nineteenth-century
+          letter. The goal is always the same: to notice what would otherwise go unseen."
+        </p>
+      </div>
+      <div class="bilingual-col">
+        <span class="lang-tag">Italiano</span>
+        <p>
+          "Penso in modo critico e creativo — che si tratti di leggere una tabella del censimento
+          o una lettera dell'Ottocento. L'obiettivo è sempre lo stesso: notare ciò che altrimenti
+          passerebbe inosservato."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRENT RESEARCH -->
+  <section id="research">
+    <p class="section-label">Featured Research</p>
+    <h2>Predicting Food Access in New Jersey</h2>
+    <p>
+      Presented at the Stockton University Data Science &amp; Strategic Analytics Graduate Symposium,
+      May 2026, with Dr. Robert Olsen.
+    </p>
+
+    <div class="research-card">
+      <p class="rc-title">ZIP-Code Level Food Access, Socioeconomic Conditions &amp; Health Outcomes</p>
+      <p class="rc-meta">Cynthia Anstey &amp; Dr. Robert Olsen · Stockton University · May 2026</p>
+      <p>
+        This study integrates multiple data sources — OpenStreetMap Overpass API, USDA Food Access
+        Research Atlas, 2021 Census TIGER/Line ZCTA shapefiles, American Community Survey 5-Year
+        Estimates, and CDC PLACES health data — to construct a comprehensive ZIP-code-level picture
+        of food access across New Jersey.
+      </p>
+      <p>
+        The model classifies each ZIP code as a Food Desert, Food Mirage, Food Swamp, or Healthy/Fragile
+        Access zone, departing from the federal FARA standard in three key ways: it uses ZIP codes
+        rather than census tracts, treats income as a continuous predictor, and applies a uniform
+        5-mile buffer from ZIP centroids. The swamp ratio formula — (fast food + convenience) ÷
+        supermarkets — identifies communities where unhealthy outlets significantly outnumber grocers.
+      </p>
+      <p>
+        A transit buffer analysis of ZIP 08087 (Little Egg Harbor–Stafford Township area) used GTFS
+        feeds and 500-meter buffers around transit stops to map whether residents without cars can
+        actually reach food resources. A key finding: desert status predicts cardiovascular disease
+        and depression, while swamp ratio predicts diabetes and tooth loss.
+      </p>
+      <div class="tag-row">
+        <span class="tag">R · Python</span>
+        <span class="tag">OpenStreetMap / Overpass API</span>
+        <span class="tag">Spatial analysis</span>
+        <span class="tag">GTFS transit data</span>
+        <span class="tag">USDA FARA</span>
+        <span class="tag">Census ACS</span>
+        <span class="tag">CDC PLACES</span>
+        <span class="tag">Food desert modeling</span>
+        <span class="tag">Health outcomes</span>
+      </div>
+    </div>
+
+    <blockquote>
+      "The greatest value of a picture is when it forces us to notice what we never expected to see."
+      <cite>— John Tukey, mathematician</cite>
+    </blockquote>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label">Skills</p>
+    <h2>Tools &amp; methods</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <p class="sg-head">Languages</p>
+        <ul>
+          <li>R</li>
+          <li>Python</li>
+          <li>SQL</li>
+          <li>HTML / CSS</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <p class="sg-head">Data &amp; analysis</p>
+        <ul>
+          <li>Spatial / GIS analysis</li>
+          <li>Predictive modeling</li>
+          <li>ETL pipelines</li>
+          <li>Excel (advanced)</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <p class="sg-head">Data sources</p>
+        <ul>
+          <li>OpenStreetMap / Overpass</li>
+          <li>Census / ACS / TIGER</li>
+          <li>USDA FARA</li>
+          <li>GTFS transit feeds</li>
+          <li>CDC PLACES</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <p class="sg-head">Humanistic methods</p>
+        <ul>
+          <li>Oral history</li>
+          <li>Archival research</li>
+          <li>Transcription &amp; translation</li>
+          <li>Grant writing</li>
+          <li>Photo restoration</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section id="timeline">
+    <p class="section-label">Education &amp; milestones</p>
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tl-year">In progress</span>
+        <div class="tl-body">
+          <p class="tl-title">M.S. Data Science &amp; Analytics — Stockton University</p>
+          <p class="tl-desc">Thesis-track research in spatial food access modeling and health outcome prediction.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">May 2026</span>
+        <div class="tl-body">
+          <p class="tl-title">Graduate Symposium — Predicting Food Access in New Jersey</p>
+          <p class="tl-desc">Presented with Dr. Robert Olsen at Stockton's Data Science &amp; Strategic Analytics Symposium.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">Dec 2024</span>
+        <div class="tl-body">
+          <p class="tl-title">M.A. American Studies — Stockton University</p>
+          <p class="tl-desc">Research focused on oral history, community archives, and digital preservation.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-year">2022</span>
+        <div class="tl-body">
+          <p class="tl-title">B.A. Literature — Stockton University</p>
+          <p class="tl-desc">Graduated with a focus on close reading, textual analysis, and cultural history.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Get in touch</p>
+    <h2>Let's connect</h2>
+    <p>
+      I'm open to research collaborations, oral history projects, data consulting, and conversations
+      about food access, public health, or community archives.
+    </p>
+    <div class="contact-row">
+      <a class="contact-link" href="https://www.linkedin.com/in/cvanstey/" target="_blank">LinkedIn</a>
+      <a class="contact-link" href="https://github.com/cvanstey" target="_blank">GitHub</a>
+      <a class="contact-link" href="https://cvanstey.github.io/research/">Research Site</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © Cynthia Anstey · cvanstey.github.io/research
+</footer>
+
 </body>
 </html>
