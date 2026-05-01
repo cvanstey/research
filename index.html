@@ -96,6 +96,7 @@ header p {
     border-radius: 10px;
     border: 1px solid var(--border);
     font-size: var(--text-md);
+    box-sizing: border-box;
 }
 
 /* LAYOUT */
@@ -220,6 +221,11 @@ footer {
     </p>
 </header>
 
+<!-- SEARCH — above all sections so it filters everything -->
+<div class="search-bar">
+    <input id="search" placeholder="Search projects (OCR, GIS, archival, ML...)" />
+</div>
+
 <div class="container">
 
 <!-- CURRENT FOCUS FIRST -->
@@ -245,11 +251,6 @@ footer {
 
 </div>
 </div>
-</div>
-
-<!-- SEARCH -->
-<div class="search-bar">
-    <input id="search" placeholder="Search projects (OCR, GIS, archival, ML...)" />
 </div>
 
 <!-- DOCUMENT INTELLIGENCE -->
@@ -322,7 +323,7 @@ footer {
 </div>
 </div>
 
-</div>
+</div><!-- /.container -->
 
 <footer>
     © Research Portal — Computational Archival & Spatial Systems
@@ -345,11 +346,12 @@ search.addEventListener("input", (e) => {
     });
 });
 
+// FIX: was "block" : "block" — sections could never collapse
 document.querySelectorAll(".section-toggle").forEach(btn => {
     btn.addEventListener("click", () => {
         const content = btn.nextElementSibling;
         content.style.display =
-            content.style.display === "none" ? "block" : "block";
+            content.style.display === "none" ? "block" : "none";
     });
 });
 </script>
