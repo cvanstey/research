@@ -38,7 +38,6 @@ body {
     line-height: 1.6;
 }
 
-/* NAV */
 nav {
     background: #111827;
     padding: 12px 20px;
@@ -53,11 +52,8 @@ nav a {
     font-weight: 500;
 }
 
-nav a:hover {
-    color: #93c5fd;
-}
+nav a:hover { color: #93c5fd; }
 
-/* HEADER */
 header {
     background: linear-gradient(135deg, #111827, #1f2937);
     color: white;
@@ -65,140 +61,43 @@ header {
     text-align: center;
 }
 
-header h1 {
-    font-size: var(--text-2xl);
-    margin: 0;
-}
+header h1 { font-size: var(--text-2xl); margin: 0; }
+header h3 { font-size: var(--text-lg); font-weight: 400; color: #cbd5e1; }
+header p { max-width: 720px; margin: 20px auto 0; color: #e5e7eb; font-size: var(--text-md); }
 
-header h3 {
-    font-size: var(--text-lg);
-    font-weight: 400;
-    color: #cbd5e1;
-}
+.search-bar { max-width: 1100px; margin: 30px auto 10px; padding: 0 20px; }
+#search { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border); font-size: var(--text-md); }
 
-header p {
-    max-width: 720px;
-    margin: 20px auto 0;
-    color: #e5e7eb;
-    font-size: var(--text-md);
-}
+.container { max-width: 1100px; margin: 20px auto 60px; padding: 0 20px; }
 
-/* SEARCH */
-.search-bar {
-    max-width: 1100px;
-    margin: 30px auto 10px;
-    padding: 0 20px;
-}
+.section { margin-top: var(--space-8); }
+.section-toggle { width: 100%; text-align: left; padding: 14px 0; font-size: var(--text-lg); font-weight: 600; border: none; background: none; cursor: pointer; border-bottom: 1px solid var(--border); }
+.section-content { margin-top: var(--space-4); }
 
-#search {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    font-size: var(--text-md);
-    box-sizing: border-box;
-}
-
-/* LAYOUT */
-.container {
-    max-width: 1100px;
-    margin: 20px auto 60px;
-    padding: 0 20px;
-}
-
-/* SECTION */
-.section {
-    margin-top: var(--space-8);
-}
-
-.section-toggle {
-    width: 100%;
-    text-align: left;
-    padding: 14px 0;
-    font-size: var(--text-lg);
-    font-weight: 600;
-    border: none;
-    background: none;
-    cursor: pointer;
-    border-bottom: 1px solid var(--border);
-}
-
-.section-content {
-    margin-top: var(--space-4);
-}
-
-/* GRID */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 18px;
 }
 
-/* CARDS */
 .card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: var(--space-6);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
-}
+.card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.06); }
+.card h2 { font-size: 1.1rem; margin-top: 0; }
+.card p { font-size: var(--text-sm); color: var(--muted); }
+.card a { display: inline-block; margin-top: 10px; color: var(--primary); text-decoration: none; font-weight: 500; }
 
-.card h2 {
-    font-size: 1.1rem;
-    margin-top: 0;
-}
+.tags { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+.tags span { font-size: var(--text-xs); padding: 2px 8px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); }
 
-.card p {
-    font-size: var(--text-sm);
-    color: var(--muted);
-}
+.highlight { border-left: 4px solid var(--primary); background: #f8fafc; }
 
-.card a {
-    display: inline-block;
-    margin-top: 10px;
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.card a:hover {
-    text-decoration: underline;
-}
-
-/* TAGS */
-.tags {
-    margin-top: 10px;
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-}
-
-.tags span {
-    font-size: var(--text-xs);
-    padding: 2px 8px;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    color: var(--muted);
-}
-
-/* HIGHLIGHT */
-.highlight {
-    border-left: 4px solid var(--primary);
-    background: #f8fafc;
-}
-
-/* FOOTER */
-footer {
-    text-align: center;
-    padding: 40px;
-    color: var(--muted);
-    font-size: var(--text-sm);
-}
+footer { text-align: center; padding: 40px; color: var(--muted); font-size: var(--text-sm); }
 </style>
 </head>
 
@@ -217,61 +116,27 @@ footer {
     <h3>Computational Archival & Spatial Data Systems</h3>
     <p>
         Transforming archival materials into structured datasets, geospatial systems,
-        and computational research infrastructures using OCR, NLP, and GIS.
+        and computational research infrastructures using OCR, NLP, GIS, and statistical modeling.
     </p>
 </header>
 
-<!-- SEARCH — above all sections so it filters everything -->
 <div class="search-bar">
     <input id="search" placeholder="Search projects (OCR, GIS, archival, ML...)" />
 </div>
 
 <div class="container">
 
-<!-- CURRENT FOCUS FIRST -->
-<div class="section">
-<button class="section-toggle">Current Focus</button>
-
-<div class="section-content">
-<div class="grid">
-
-    <div class="card highlight" data-tags="food access nj snap gis ml census transit gtfs">
-        <h2>NJ Food Access & Transit Equity System</h2>
-        <p>
-            Spatial ML pipeline integrating SNAP eligibility, Census ACS demographics,
-            OpenStreetMap food retail data, and transit accessibility (GTFS).
-        </p>
-        <div class="tags">
-            <span>ML</span><span>GIS</span><span>Public Health</span><span>GTFS</span>
-        </div>
-        <a href="https://cvanstey.github.io/research/projects/nj-food-desert.html">
-            Open Project →
-        </a>
-    </div>
-
-</div>
-</div>
-</div>
-
 <!-- DOCUMENT INTELLIGENCE -->
 <div class="section">
 <button class="section-toggle">Document Intelligence Systems</button>
-
 <div class="section-content">
 <div class="grid">
 
-    <div class="card highlight" data-tags="ocr pipeline text extraction archival">
+    <div class="card" data-tags="ocr pipeline text extraction archival">
         <h2>OCR Pipeline System</h2>
-        <p>Multi-stage OCR pipeline using OpenCV, PaddleOCR, and NLP.</p>
+        <p>Multi-stage OCR pipeline using OpenCV, OCR engines, and NLP structuring.</p>
         <div class="tags"><span>OCR</span><span>Pipeline</span></div>
         <a href="projects/ocr-pipeline.html">View System →</a>
-    </div>
-
-    <div class="card" data-tags="archival pdf extraction brochures">
-        <h2>Archival Extraction Workflows</h2>
-        <p>Parsing scanned brochures, newspapers, and PDFs into datasets.</p>
-        <div class="tags"><span>OCR</span><span>Archives</span></div>
-        <a href="projects/">Explore →</a>
     </div>
 
 </div>
@@ -281,49 +146,63 @@ footer {
 <!-- SPATIAL -->
 <div class="section">
 <button class="section-toggle">Spatial & GIS Systems</button>
-
 <div class="section-content">
 <div class="grid">
 
-    <div class="card highlight" data-tags="gis atlantic city mapping archival">
+    <div class="card" data-tags="gis atlantic city mapping archival">
         <h2>Atlantic City Archive</h2>
-        <p>OCR + GIS reconstruction of African American business networks.</p>
+        <p>OCR + GIS reconstruction of historical business networks.</p>
         <div class="tags"><span>GIS</span><span>OCR</span></div>
         <a href="https://cvanstey.github.io/ACBT-Brochures/">Open Project →</a>
     </div>
 
-    <div class="card" data-tags="storymap arcgis spatial narrative">
-        <h2>ArcGIS Story Map</h2>
-        <p>Interactive spatial storytelling and historical mapping.</p>
-        <div class="tags"><span>GIS</span><span>Story</span></div>
-        <a href="https://arcg.is/vrjT4">View Map →</a>
-    </div>
-
 </div>
 </div>
 </div>
 
-<!-- DATA SYSTEMS -->
+<!-- STATISTICAL MODELING -->
 <div class="section">
-<button class="section-toggle">Data Systems & Dashboards</button>
-
+<button class="section-toggle">Statistical Modeling (R)</button>
 <div class="section-content">
 <div class="grid">
 
-    <div class="card highlight" data-tags="ml gis public health food nj census snap gtfs">
-        <h2>NJ Food Environment ML Pipeline</h2>
-        <p>Predicts food desert status across NJ zip codes using Census + OSM + GTFS.</p>
-        <div class="tags"><span>ML</span><span>GIS</span><span>Public Health</span></div>
-        <a href="https://cvanstey.github.io/research/projects/nj-food-desert.html">
-            Open Project →
-        </a>
+    <div class="card highlight" data-tags="r forecasting arima ets un desa migration population time series">
+        <h2>Migration Forecasting System (R)</h2>
+        <p>
+            Time-series forecasting pipeline in R using ARIMA and ETS models applied to UN DESA migration data.
+            Handles national and origin-level trends, with ensemble forecasting and diagnostic evaluation.
+        </p>
+        <div class="tags"><span>R</span><span>Forecasting</span><span>ARIMA</span><span>ETS</span></div>
+        <a href="#">View Model →</a>
     </div>
 
 </div>
 </div>
 </div>
 
-</div><!-- /.container -->
+<!-- INTERACTIVE DASHBOARDS -->
+<div class="section">
+<button class="section-toggle">Interactive Dashboards (Python)</button>
+<div class="section-content">
+<div class="grid">
+
+    <div class="card highlight" data-tags="python dash visualization sankey gis migration un desa">
+        <h2>Migration Analytics Dashboard (Python Dash)</h2>
+        <p>
+            Interactive visualization system built in Python Dash for exploring UN DESA migration data.
+            Includes Sankey flows, choropleth maps, heatmaps, and time-series exploration tools.
+        </p>
+        <div class="tags"><span>Python</span><span>Dash</span><span>GIS</span><span>Visualization</span></div>
+        <a href="#">View Dashboard →</a>
+    </div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
 
 <footer>
     © Research Portal — Computational Archival & Spatial Systems
@@ -346,12 +225,12 @@ search.addEventListener("input", (e) => {
     });
 });
 
-// FIX: was "block" : "block" — sections could never collapse
+// section toggle
+
 document.querySelectorAll(".section-toggle").forEach(btn => {
     btn.addEventListener("click", () => {
         const content = btn.nextElementSibling;
-        content.style.display =
-            content.style.display === "none" ? "block" : "none";
+        content.style.display = content.style.display === "none" ? "block" : "none";
     });
 });
 </script>
