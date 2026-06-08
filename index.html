@@ -9,18 +9,10 @@
 :root {
     --font-body: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 
-    --text-xs: 0.85rem;
     --text-sm: 0.95rem;
     --text-md: 1.05rem;
     --text-lg: 1.25rem;
-    --text-xl: 1.6rem;
     --text-2xl: 2.2rem;
-
-    --space-2: 8px;
-    --space-4: 16px;
-    --space-6: 24px;
-    --space-8: 32px;
-    --space-12: 48px;
 
     --bg: #f6f7fb;
     --surface: #ffffff;
@@ -38,6 +30,7 @@ body {
     line-height: 1.6;
 }
 
+/* NAV */
 nav {
     background: #111827;
     padding: 12px 20px;
@@ -45,64 +38,137 @@ nav {
     justify-content: center;
     gap: 24px;
 }
-
 nav a {
     color: #e5e7eb;
     text-decoration: none;
     font-weight: 500;
 }
 
-nav a:hover { color: #93c5fd; }
-
+/* HEADER */
 header {
     background: linear-gradient(135deg, #111827, #1f2937);
     color: white;
-    padding: 80px 20px;
+    padding: 70px 20px;
     text-align: center;
 }
 
 header h1 { font-size: var(--text-2xl); margin: 0; }
 header h3 { font-size: var(--text-lg); font-weight: 400; color: #cbd5e1; }
-header p { max-width: 720px; margin: 20px auto 0; color: #e5e7eb; font-size: var(--text-md); }
 
-.search-bar { max-width: 1100px; margin: 30px auto 10px; padding: 0 20px; }
-#search { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border); font-size: var(--text-md); }
+/* SEARCH */
+.search-bar {
+    max-width: 1100px;
+    margin: 30px auto 10px;
+    padding: 0 20px;
+}
 
-.container { max-width: 1100px; margin: 20px auto 60px; padding: 0 20px; }
+#search {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
 
-.section { margin-top: var(--space-8); }
-.section-toggle { width: 100%; text-align: left; padding: 14px 0; font-size: var(--text-lg); font-weight: 600; border: none; background: none; cursor: pointer; border-bottom: 1px solid var(--border); }
-.section-content { margin-top: var(--space-4); }
+/* LAYOUT */
+.container {
+    max-width: 1100px;
+    margin: 20px auto 60px;
+    padding: 0 20px;
+}
 
+.section {
+    margin-top: 40px;
+}
+
+.section-toggle {
+    width: 100%;
+    text-align: left;
+    padding: 14px 0;
+    font-size: var(--text-lg);
+    font-weight: 600;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+}
+
+.section-content {
+    margin-top: 20px;
+}
+
+/* GRID */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 18px;
 }
 
+/* CARD */
 .card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 12px;
-    padding: var(--space-6);
+    padding: 18px;
+    transition: 0.2s ease;
 }
 
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* IMAGE (NO CROPPING SAFE VERSION) */
 .card-img {
     width: 100%;
-    max-height: 200px;
-    object-fit: cover;
+    height: 180px;
+    object-fit: contain;
+    background: #f3f4f6;
+    border-radius: 8px;
 }
-.card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.06); }
-.card h2 { font-size: 1.1rem; margin-top: 0; }
-.card p { font-size: var(--text-sm); color: var(--muted); }
-.card a { display: inline-block; margin-top: 10px; color: var(--primary); text-decoration: none; font-weight: 500; }
 
-.tags { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
-.tags span { font-size: var(--text-xs); padding: 2px 8px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); }
+/* TEXT */
+.card h2 {
+    font-size: 1.1rem;
+    margin: 10px 0 5px;
+}
 
-.highlight { border-left: 4px solid var(--primary); background: #f8fafc; }
+.card p {
+    font-size: var(--text-sm);
+    color: var(--muted);
+}
 
-footer { text-align: center; padding: 40px; color: var(--muted); font-size: var(--text-sm); }
+/* TAGS */
+.tags {
+    margin-top: 10px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.tags span {
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+}
+
+/* LINK */
+.card a {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: var(--text-sm);
+}
 </style>
 </head>
 
@@ -119,14 +185,10 @@ footer { text-align: center; padding: 40px; color: var(--muted); font-size: var(
 <header>
     <h1>Research Portal</h1>
     <h3>Computational Archival & Spatial Data Systems</h3>
-    <p>
-        Transforming archival materials into structured datasets, geospatial systems,
-        and computational research infrastructures using OCR, NLP, GIS, and statistical modeling.
-    </p>
 </header>
 
 <div class="search-bar">
-    <input id="search" placeholder="Search projects (OCR, GIS, archival, ML...)" />
+    <input id="search" placeholder="Search projects..." />
 </div>
 
 <div class="container">
@@ -137,60 +199,38 @@ footer { text-align: center; padding: 40px; color: var(--muted); font-size: var(
 <div class="section-content">
 <div class="grid">
 
-<div class="card" data-tags="ocr pipeline text extraction archival">
-    <img src="images/ocr-pipeline.jpg" alt="OCR Pipeline Diagram" class="card-img">
-
-<div class="card" data-tags="ocr pipeline text extraction archival">
-    <img src="images/ocr-pipeline.jpg" alt="OCR Pipeline Diagram" class="card-img">
-    
-    <h2>OCR Pipeline System</h2>
-    <p>Multi-stage OCR pipeline using OpenCV, OCR engines, and NLP structuring.</p>
-
-    <div class="tags">
-        <span>OCR</span>
-        <span>Pipeline</span>
+    <div class="card" data-tags="ocr pipeline archival">
+        <img src="images/ocr-pipeline.jpg" class="card-img" alt="OCR Pipeline">
+        <h2>OCR Pipeline System</h2>
+        <p>Multi-stage OCR pipeline using OpenCV, OCR engines, and NLP structuring.</p>
+        <div class="tags"><span>OCR</span><span>Pipeline</span></div>
+        <a href="projects/ocr-pipeline.html">View System →</a>
     </div>
 
-    <a href="projects/ocr-pipeline.html">View System →</a>
-</div>
-
-<div class="card" data-tags="cybersecurity analysis">
-    <img src="images/naic_plot4_states.png" alt="PDF Table Extraction System" class="card-img">
-
-    <h2>PDF Table Extractions</h2>
-
-    <p>
-        Multi-stage OCR pipeline extracting tables from PDFs using OpenCV, OCR engines,
-        and NLP structuring for a cybersecurity study.
-    </p>
-
-    <div class="tags">
-        <span>OCR</span>
-        <span>Pipeline</span>
-        <span>Cybersecurity</span>
+    <div class="card" data-tags="cybersecurity ocr pdf">
+        <img src="images/naic_plot4_states.png" class="card-img" alt="PDF Extraction">
+        <h2>PDF Table Extractions</h2>
+        <p>OCR + NLP system extracting structured tables from PDFs for cybersecurity analysis.</p>
+        <div class="tags"><span>OCR</span><span>Cybersecurity</span></div>
+        <a href="https://huggingface.co/spaces/CVAnstey/Cybersecurity" target="_blank">
+            View System →
+        </a>
     </div>
 
-    <a href="https://huggingface.co/spaces/CVAnstey/Cybersecurity" target="_blank">
-        View System →
-    </a>
-</div>
-
-        
-    </div>
 </div>
 </div>
 </div>
 
-<!-- PREDICTIVE ANALYSIS -->
+<!-- ML -->
 <div class="section">
 <button class="section-toggle">Machine Learning Systems</button>
 <div class="section-content">
 <div class="grid">
 
-    <div class="card" data-tags="food access>
-        <h2>Predicitive Pipeline System</h2>
-        <p>Multi-stage predicitve pipeline using scikit learn, GIS, and Gradient Boost.</p>
-        <div class="tags"><span>OCR</span><span>Pipeline</span></div>
+    <div class="card" data-tags="ml gis prediction">
+        <h2>Predictive Pipeline System</h2>
+        <p>Scikit-learn + GIS + Gradient Boosting predictive modeling pipeline.</p>
+        <div class="tags"><span>ML</span><span>GIS</span></div>
         <a href="projects/food_access.html">View System →</a>
     </div>
 
@@ -198,63 +238,40 @@ footer { text-align: center; padding: 40px; color: var(--muted); font-size: var(
 </div>
 </div>
 
-    
-
-<!-- SPATIAL -->
+<!-- GIS -->
 <div class="section">
 <button class="section-toggle">Spatial & GIS Systems</button>
 <div class="section-content">
 <div class="grid">
 
-    <div class="card" data-tags="gis atlantic city mapping archival">
+    <div class="card" data-tags="gis atlantic city">
         <h2>Atlantic City Archive</h2>
         <p>OCR + GIS reconstruction of historical business networks.</p>
         <div class="tags"><span>GIS</span><span>OCR</span></div>
-        <a href="https://cvanstey.github.io/ACBT-Brochures/">Open Project →</a>
+        <a href="https://cvanstey.github.io/ACBT-Brochures/" target="_blank">
+            Open Project →
+        </a>
     </div>
 
 </div>
 </div>
 </div>
 
-<!-- STATISTICAL MODELING -->
+<!-- DASHBOARD -->
 <div class="section">
-<button class="section-toggle">Statistical Modeling (R)</button>
+<button class="section-toggle">Interactive Dashboards</button>
 <div class="section-content">
 <div class="grid">
 
-    <div class="card highlight" data-tags="r forecasting arima ets un desa migration population time series">
-        <h2>Migration Forecasting System (R)</h2>
-        <p>
-            Time-series forecasting pipeline in R using ARIMA and ETS models applied to UN DESA migration data.
-            Handles national and origin-level trends, with ensemble forecasting and diagnostic evaluation.
-        </p>
-        <div class="tags"><span>R</span><span>Forecasting</span><span>ARIMA</span><span>ETS</span></div>
-        <a href="projects/italy_migration.html">View Model →</a>
+    <div class="card" data-tags="dash python visualization">
+        <h2>Migration Dashboard</h2>
+        <p>Python Dash system for UN migration flow visualization.</p>
+        <div class="tags"><span>Python</span><span>Dash</span></div>
+        <a href="https://huggingface.co/spaces/CVAnstey/DSSA" target="_blank">
+            View Dashboard →
+        </a>
     </div>
 
-</div>
-</div>
-</div>
-
-<!-- INTERACTIVE DASHBOARDS -->
-<div class="section">
-<button class="section-toggle">Interactive Dashboards (Python)</button>
-<div class="section-content">
-<div class="grid">
-
-    <div class="card highlight" data-tags="python dash visualization sankey gis migration un desa">
-        <h2>Migration Analytics Dashboard (Python Dash)</h2>
-        <p>
-            Interactive visualization system built in Python Dash for exploring UN DESA migration data.
-            Includes Sankey flows, choropleth maps, heatmaps, and time-series exploration tools.
-        </p>
-        <div class="tags"><span>Python</span><span>Dash</span><span>GIS</span><span>Visualization</span></div>
-        <a href="https://huggingface.co/spaces/CVAnstey/DSSA">View Dashboard →</a>
-    </div>
-
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -269,7 +286,7 @@ footer { text-align: center; padding: 40px; color: var(--muted); font-size: var(
 const search = document.getElementById("search");
 const cards = document.querySelectorAll(".card");
 
-search.addEventListener("input", (e) => {
+search.addEventListener("input", e => {
     const q = e.target.value.toLowerCase();
 
     cards.forEach(card => {
@@ -282,12 +299,11 @@ search.addEventListener("input", (e) => {
     });
 });
 
-// section toggle
-
 document.querySelectorAll(".section-toggle").forEach(btn => {
     btn.addEventListener("click", () => {
         const content = btn.nextElementSibling;
-        content.style.display = content.style.display === "none" ? "block" : "none";
+        content.style.display =
+            content.style.display === "none" ? "block" : "none";
     });
 });
 </script>
