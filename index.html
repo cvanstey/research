@@ -176,6 +176,101 @@ header p {
     font-weight: 500;
 }
 
+/* METHODS TOGGLE */
+.methods-toggle {
+    margin-top: 12px;
+    padding: 8px 0 0;
+    background: none;
+    border: none;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.methods-toggle .chevron {
+    display: inline-block;
+    transition: transform 0.2s ease;
+    font-size: 0.7rem;
+}
+
+.methods-toggle[aria-expanded="true"] .chevron {
+    transform: rotate(90deg);
+}
+
+.methods-content {
+    display: none;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+    font-size: 0.85rem;
+    color: var(--text);
+}
+
+.methods-content.open {
+    display: block;
+}
+
+.methods-content h4 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin: 14px 0 6px;
+}
+
+.methods-content h4:first-child {
+    margin-top: 0;
+}
+
+.methods-content p {
+    color: var(--text);
+    flex-grow: 0;
+    margin: 0 0 8px;
+}
+
+.methods-content ul {
+    margin: 0 0 8px;
+    padding-left: 18px;
+}
+
+.methods-content li {
+    margin-bottom: 4px;
+}
+
+.methods-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 6px 0 10px;
+    font-size: 0.8rem;
+}
+
+.methods-table th, .methods-table td {
+    border: 1px solid var(--border);
+    padding: 4px 6px;
+    text-align: left;
+}
+
+.methods-table th {
+    background: var(--bg);
+    font-weight: 600;
+}
+
+.methods-note {
+    background: var(--bg);
+    border-left: 3px solid var(--primary);
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin: 8px 0;
+}
+
 /* FOOTER */
 footer {
     text-align: center;
@@ -199,6 +294,10 @@ footer {
     <p>This portal collects my work in OCR/NLP pipelines, GIS reconstruction, and predictive modeling, applied to problems ranging from historical archives to food access and migration policy.</p>
 </header>
 
+<div class="search-bar">
+    <input id="search" placeholder="Search projects..." />
+</div>
+
 <div class="container">
 
 <!-- DOCUMENT INTELLIGENCE -->
@@ -212,6 +311,41 @@ footer {
         <h2>OCR Pipeline System</h2>
         <p>Multi-stage OCR pipeline to transcribe archived documents for upload to Preservica and use in Dublin Core template automation.</p>
         <div class="tags"><span>OCR</span><span>Pipeline</span></div>
+        <button class="methods-toggle" aria-expanded="false">
+            <span class="chevron">▶</span> Methods &amp; Findings
+        </button>
+        <div class="methods-content">
+            <h4>Tools</h4>
+            <p>Python pipeline built around two OCR engines &mdash; Tesseract (LSTM) and PaddleOCR (PP-OCRv5) &mdash; with OpenCV and scikit-image for preprocessing. Tested across three historical document scans spanning 1918&ndash;1994.</p>
+
+            <h4>Pipeline Stages</h4>
+            <ul>
+                <li>Image preprocessing (grayscale, bilateral filtering, CLAHE contrast enhancement, adaptive/Sauvola thresholding &mdash; four interchangeable modes)</li>
+                <li>Column detection via bounding-box coordinate ranges, for multi-column newspaper layouts</li>
+                <li>Reading-order sorting and line merging</li>
+                <li>Confidence-based filtering and dictionary-based post-correction (two-pass regex + whole-word substitution)</li>
+                <li>CSV/JSON logging of every run for reproducible comparison</li>
+            </ul>
+
+            <h4>Key Finding: Preprocessing Isn't Always Helpful</h4>
+            <p>On a 1994 newsletter scan that had already been enhanced in Photoshop prior to scanning, raw grayscale input outperformed every automated preprocessing mode &mdash; applying further thresholding to an already-enhanced image degraded results (a "double processing" effect). On an older, unenhanced 1920s newsletter, the opposite was true: CLAHE contrast enhancement performed best. This established a core pipeline principle &mdash; preprocessing must be validated per document, not applied by default.</p>
+
+            <table class="methods-table">
+                <tr><th>Document</th><th>Engine</th><th>Best CER</th><th>Best WER</th><th>Avg Confidence</th></tr>
+                <tr><td>Weymouth Packet (1994)</td><td>Tesseract</td><td>6.6%*</td><td>7.1%*</td><td>89.4%</td></tr>
+                <tr><td>Dorothy Newsletter (1920s)</td><td>Tesseract</td><td>66.8%</td><td>80.2%</td><td>76.8%</td></tr>
+                <tr><td>Dorothy Newsletter (1920s)</td><td>PaddleOCR</td><td>75.4%</td><td>93.6%</td><td>94.4%</td></tr>
+            </table>
+            <p style="font-size:0.75rem;color:var(--muted);margin-top:-6px;">*After two-pass dictionary correction</p>
+
+            <h4>Key Finding: High Confidence ≠ Correct Output</h4>
+            <p>On the older newsletter, PaddleOCR reported much higher per-segment confidence than Tesseract (94&ndash;95% vs 77%) while producing a substantially worse character error rate. The cause was reading-order failure: PaddleOCR was recognizing individual words correctly but assembling multi-column text in the wrong sequence, and separately, was silently downscaling a 9,672px-wide scan to fit a 4,000px internal limit. Confidence scores reflect per-segment recognition quality, not document-level correctness.</p>
+
+            <h4>Debugging Note</h4>
+            <p>A version upgrade to PaddleOCR (PP-OCRv5) changed its output format from indexed lists to a named-field result object. Code written against the old format silently mis-parsed the new one &mdash; returning single characters instead of text segments &mdash; without raising an error. Caught by inspecting raw output structure directly rather than trusting prior API documentation.</p>
+
+            <div class="methods-note">Full experiment log (CSV) and engine-comparison code available on request.</div>
+        </div>
     </div>
 
     <div class="card" data-tags="cybersecurity ocr pdf">
@@ -222,6 +356,23 @@ footer {
         <a href="https://huggingface.co/spaces/CVAnstey/Cybersecurity" target="_blank">
             View System →
         </a>
+        <button class="methods-toggle" aria-expanded="false">
+            <span class="chevron">▶</span> Methods &amp; Findings
+        </button>
+        <div class="methods-content">
+            <h4>Approach</h4>
+            <p>Built on an early image+text extraction prototype: PyMuPDF renders each PDF page to a high-resolution image, OpenCV contour detection isolates significant regions (tables, figures) by bounding-box size filtering, and each region is cropped and saved at 300 DPI. OCR and regex-based parsing then extract structured fields &mdash; in this application, tabular state-level data for cybersecurity analysis.</p>
+
+            <h4>Libraries</h4>
+            <ul>
+                <li>PyMuPDF (fitz) &mdash; page rendering and PDF parsing</li>
+                <li>OpenCV &mdash; thresholding, contour detection, region cropping</li>
+                <li>pytesseract &mdash; OCR on extracted regions</li>
+                <li>Regex / pattern matching &mdash; structured field extraction from recognized text</li>
+            </ul>
+
+            <div class="methods-note">This module evolved from an earlier general-purpose extraction prototype originally built for archival document processing, later adapted to a tabular/cybersecurity dataset.</div>
+        </div>
     </div>
 
 </div>
@@ -239,6 +390,33 @@ footer {
         <h2>Predictive Pipeline System</h2>
         <p>Descriptive and Inferential predictive modeling pipeline to assess food landscapes in New Jersey.</p>
         <div class="tags"><span>ML</span><span>GIS</span></div>
+        <button class="methods-toggle" aria-expanded="false">
+            <span class="chevron">▶</span> Methods &amp; Findings
+        </button>
+        <div class="methods-content">
+            <h4>What It Models</h4>
+            <p>ZIP-code-level food access across New Jersey, combining demographic, economic, and retail-access variables (median income, % elderly, % poverty, % no-vehicle households, distance to nearest supermarket, SNAP/WIC retailer density) into composite vulnerability scores and risk tiers.</p>
+
+            <h4>Two Linked Analyses</h4>
+            <ul>
+                <li><strong>Elderly food access vulnerability</strong> &mdash; a composite score combining distance-to-supermarket, vehicle access, poverty, and elderly population share, sorted into four risk tiers (Low &rarr; Critical)</li>
+                <li><strong>SNAP/WIC retailer gap analysis</strong> &mdash; ZIPs where poverty/SNAP-eligibility is high but SNAP and WIC outlet density per 10k residents is near zero, flagged as "combined gap zips"</li>
+            </ul>
+
+            <h4>Notable Findings</h4>
+            <p>Elderly-heavy ZIPs in the Critical Risk tier average 9.94% no-vehicle households and 3.97 miles to the nearest supermarket &mdash; nearly double the no-vehicle rate and more than double the distance of Low Risk ZIPs. Burlington and Middlesex counties rank highest for elderly food vulnerability; several SNAP/WIC "combined gap" ZIPs (e.g. Readington Twp, High Bridge Boro) have zero SNAP or WIC outlets despite measurable poverty rates.</p>
+
+            <p>Spearman correlation against county health data showed % elderly population is moderately correlated with high cholesterol (r=0.66) and coronary heart disease (r=0.40) prevalence, but not significantly correlated with diabetes or depression rates &mdash; suggesting food-access vulnerability tracks more closely with certain chronic conditions than others.</p>
+
+            <table class="methods-table">
+                <tr><th>Metric</th><th>Elderly-heavy ZIPs</th><th>Other ZIPs</th><th>Sig.</th></tr>
+                <tr><td>Miles to nearest supermarket</td><td>2.78</td><td>1.88</td><td>***</td></tr>
+                <tr><td>SNAP outlets (density)</td><td>4.46</td><td>9.95</td><td>***</td></tr>
+                <tr><td>% no vehicle</td><td>4.93</td><td>9.75</td><td>***</td></tr>
+            </table>
+
+            <div class="methods-note">Statistical testing via Spearman correlation; full ZIP-level tables and county rankings available on request.</div>
+        </div>
     </div>
 
 </div>
@@ -259,6 +437,21 @@ footer {
         <a href="https://cvanstey.github.io/ACBT-Brochures/" target="_blank">
             Open Project →
         </a>
+        <button class="methods-toggle" aria-expanded="false">
+            <span class="chevron">▶</span> Methods &amp; Findings
+        </button>
+        <div class="methods-content">
+            <h4>Source Material</h4>
+            <p>1930s Atlantic City Board of Trade tourism brochures documenting African American businesses, leisure venues, and civic life during the Depression and early urban renewal periods &mdash; held in fragmented form across a private collection and the Atlantic City Free Public Library (six known brochures in the series).</p>
+
+            <h4>Approach</h4>
+            <p>Transcription and structured extraction of business listings, addresses, and names from brittle, ephemeral print materials, reconstructed as a geocoded, mappable dataset in QGIS to visualize historical business networks and place them in spatial/civic context.</p>
+
+            <h4>Part of a Larger Fellowship Project</h4>
+            <p>This work is one strand of a broader applied-AI fellowship project with Stockton University Special Collections, evaluating OCR transcription quality, Dublin Core/MARC metadata tooling, and WCAG 2.2 accessibility compliance across a 40-document archival corpus spanning the 1800s&ndash;1940s. A central finding from that work: a 0.53% character error rate (Adobe OCR + correction) is sufficient for human readability and accessibility compliance, but insufficient for downstream computational tasks like named entity recognition or geocoding &mdash; where small error rates still break tokenization and string matching. The right question isn't "is this error rate acceptable," but "acceptable for what purpose."</p>
+
+            <div class="methods-note">Related write-up in progress: a methods paper on transcription, metadata, and accessibility in special collections archives, including a critique of vendor API paywalls (Preservica) as a structural barrier to ADA/WCAG compliance at under-resourced institutions.</div>
+        </div>
     </div>
 
 </div>
@@ -307,7 +500,7 @@ search.addEventListener("input", e => {
     const q = e.target.value.toLowerCase();
 
     cards.forEach(card => {
-        const text = card.innerText.toLowerCase();
+        const text = card.textContent.toLowerCase();
         const tags = (card.dataset.tags || "").toLowerCase();
 
         card.style.display = (text.includes(q) || tags.includes(q))
@@ -321,6 +514,15 @@ document.querySelectorAll(".section-toggle").forEach(btn => {
         const content = btn.nextElementSibling;
         content.style.display =
             content.style.display === "none" ? "block" : "none";
+    });
+});
+
+document.querySelectorAll(".methods-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const content = btn.nextElementSibling;
+        const expanded = btn.getAttribute("aria-expanded") === "true";
+        btn.setAttribute("aria-expanded", String(!expanded));
+        content.classList.toggle("open");
     });
 });
 </script>
