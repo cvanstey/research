@@ -179,7 +179,10 @@ header p {
 /* METHODS TOGGLE */
 .methods-toggle {
     margin-top: 12px;
-    padding: 8px 0 0;
+    padding: 10px 4px;
+    margin-left: -4px;
+    margin-right: -4px;
+    width: calc(100% + 8px);
     background: none;
     border: none;
     border-top: 1px solid var(--border);
@@ -191,12 +194,21 @@ header p {
     display: flex;
     align-items: center;
     gap: 6px;
+    -webkit-tap-highlight-color: rgba(37, 99, 235, 0.15);
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.methods-toggle:active {
+    background: var(--bg);
 }
 
 .methods-toggle .chevron {
     display: inline-block;
     transition: transform 0.2s ease;
     font-size: 0.7rem;
+    pointer-events: none;
 }
 
 .methods-toggle[aria-expanded="true"] .chevron {
@@ -294,11 +306,15 @@ footer {
     <p>This portal collects my work in OCR/NLP pipelines, GIS reconstruction, and predictive modeling, applied to problems ranging from historical archives to food access and migration policy.</p>
 </header>
 
+<div class="search-bar">
+    <input id="search" placeholder="Search projects..." />
+</div>
+
 <div class="container">
 
 <!-- DOCUMENT INTELLIGENCE -->
 <div class="section">
-<button class="section-toggle">Document Intelligence Systems</button>
+<button type="button" class="section-toggle">Document Intelligence Systems</button>
 <div class="section-content">
 <div class="grid">
 
@@ -307,7 +323,7 @@ footer {
         <h2>OCR Pipeline System</h2>
         <p>Multi-stage OCR pipeline to transcribe archived documents for upload to Preservica and use in Dublin Core template automation.</p>
         <div class="tags"><span>OCR</span><span>Pipeline</span></div>
-        <button class="methods-toggle" aria-expanded="false">
+        <button type="button" class="methods-toggle" aria-expanded="false">
             <span class="chevron">▶</span> Methods &amp; Findings
         </button>
         <div class="methods-content">
@@ -352,7 +368,7 @@ footer {
         <a href="https://huggingface.co/spaces/CVAnstey/Cybersecurity" target="_blank">
             View System →
         </a>
-        <button class="methods-toggle" aria-expanded="false">
+        <button type="button" class="methods-toggle" aria-expanded="false">
             <span class="chevron">▶</span> Methods &amp; Findings
         </button>
         <div class="methods-content">
@@ -388,7 +404,7 @@ footer {
 
 <!-- ML -->
 <div class="section">
-<button class="section-toggle">Machine Learning Systems</button>
+<button type="button" class="section-toggle">Machine Learning Systems</button>
 <div class="section-content">
 <div class="grid">
 
@@ -397,7 +413,7 @@ footer {
         <h2>Predictive Pipeline System</h2>
         <p>Descriptive and Inferential predictive modeling pipeline to assess food landscapes in New Jersey.</p>
         <div class="tags"><span>ML</span><span>GIS</span></div>
-        <button class="methods-toggle" aria-expanded="false">
+        <button type="button" class="methods-toggle" aria-expanded="false">
             <span class="chevron">▶</span> Methods &amp; Findings
         </button>
         <div class="methods-content">
@@ -432,7 +448,7 @@ footer {
 
 <!-- GIS -->
 <div class="section">
-<button class="section-toggle">Spatial & GIS Systems</button>
+<button type="button" class="section-toggle">Spatial & GIS Systems</button>
 <div class="section-content">
 <div class="grid">
 
@@ -444,7 +460,7 @@ footer {
         <a href="https://cvanstey.github.io/ACBT-Brochures/" target="_blank">
             Open Project →
         </a>
-        <button class="methods-toggle" aria-expanded="false">
+        <button type="button" class="methods-toggle" aria-expanded="false">
             <span class="chevron">▶</span> Methods &amp; Findings
         </button>
         <div class="methods-content">
@@ -467,7 +483,7 @@ footer {
 
 <!-- DASHBOARD -->
 <div class="section">
-<button class="section-toggle">Interactive Dashboards</button>
+<button type="button" class="section-toggle">Interactive Dashboards</button>
 <div class="section-content">
 <div class="grid">
 
@@ -495,6 +511,8 @@ footer {
 </div>
 </div>
 
+</div>
+
 <footer>
     © Research Portal — Computational Archival & Spatial Systems
 </footer>
@@ -516,21 +534,22 @@ search.addEventListener("input", e => {
     });
 });
 
-document.querySelectorAll(".section-toggle").forEach(btn => {
-    btn.addEventListener("click", () => {
-        const content = btn.nextElementSibling;
+document.addEventListener("click", e => {
+    const sectionBtn = e.target.closest(".section-toggle");
+    if (sectionBtn) {
+        const content = sectionBtn.nextElementSibling;
         content.style.display =
             content.style.display === "none" ? "block" : "none";
-    });
-});
+        return;
+    }
 
-document.querySelectorAll(".methods-toggle").forEach(btn => {
-    btn.addEventListener("click", () => {
-        const content = btn.nextElementSibling;
-        const expanded = btn.getAttribute("aria-expanded") === "true";
-        btn.setAttribute("aria-expanded", String(!expanded));
+    const methodsBtn = e.target.closest(".methods-toggle");
+    if (methodsBtn) {
+        const content = methodsBtn.nextElementSibling;
+        const expanded = methodsBtn.getAttribute("aria-expanded") === "true";
+        methodsBtn.setAttribute("aria-expanded", String(!expanded));
         content.classList.toggle("open");
-    });
+    }
 });
 </script>
 
