@@ -360,18 +360,29 @@ footer {
             <span class="chevron">▶</span> Methods &amp; Findings
         </button>
         <div class="methods-content">
-            <h4>Approach</h4>
-            <p>Built on an early image+text extraction prototype: PyMuPDF renders each PDF page to a high-resolution image, OpenCV contour detection isolates significant regions (tables, figures) by bounding-box size filtering, and each region is cropped and saved at 300 DPI. OCR and regex-based parsing then extract structured fields &mdash; in this application, tabular state-level data for cybersecurity analysis.</p>
+            <h4>Source Reports</h4>
+            <p>Tables and figures extracted from three published PDF reports &mdash; the Verizon Data Breach Investigations Report (DBIR) 2025, the IBM Cost of a Data Breach Report 2025, and a NAICS sector breakdown &mdash; using PyMuPDF for page rendering and OpenCV contour detection to isolate table regions, followed by OCR and regex-based field parsing into clean tabular data (attack vectors, breach costs, threat actions, industry patterns by region).</p>
+
+            <h4>Resulting Dashboard</h4>
+            <p>A Streamlit dashboard built on the extracted data, scoring IBM's attack vectors by a composite <strong>risk score = average breach cost &times; frequency of occurrence</strong>, then classifying each vector into four quadrants &mdash; Critical (high cost + high frequency), Catastrophic (high cost, lower frequency), Chronic (high frequency, lower cost), and Low &mdash; using median splits on both dimensions.</p>
+
+            <h4>Visualizations</h4>
+            <ul>
+                <li>Risk-category bubble chart: frequency vs. average cost, bubble size = risk score</li>
+                <li>KPI summary cards for Verizon DBIR's top-level risk metrics</li>
+                <li>Horizontal lollipop charts comparing threat actions and attack patterns by global breach share</li>
+                <li>Sidebar filtering by risk category and report section</li>
+            </ul>
 
             <h4>Libraries</h4>
             <ul>
-                <li>PyMuPDF (fitz) &mdash; page rendering and PDF parsing</li>
-                <li>OpenCV &mdash; thresholding, contour detection, region cropping</li>
-                <li>pytesseract &mdash; OCR on extracted regions</li>
-                <li>Regex / pattern matching &mdash; structured field extraction from recognized text</li>
+                <li>PyMuPDF (fitz) + OpenCV &mdash; table/figure region extraction from source PDFs</li>
+                <li>pandas / numpy &mdash; data cleaning (currency and percentage string parsing) and risk scoring</li>
+                <li>scikit-learn (MinMaxScaler) &mdash; normalizing cost/frequency for comparison</li>
+                <li>Streamlit + Matplotlib &mdash; interactive dashboard and custom chart styling</li>
             </ul>
 
-            <div class="methods-note">This module evolved from an earlier general-purpose extraction prototype originally built for archival document processing, later adapted to a tabular/cybersecurity dataset.</div>
+            <div class="methods-note">Single-instance launcher pattern: the script detects whether it's running under Streamlit's interpreter and self-relaunches via subprocess exactly once, avoiding duplicate browser tabs when run directly from an IDE.</div>
         </div>
     </div>
 
