@@ -1,1 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tools — Research Portal</title>
 
+<style>
+:root {
+    --font-body: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+    --text-sm: 0.95rem;
+    --text-md: 1.05rem;
+    --text-lg: 1.25rem;
+    --text-2xl: 2.2rem;
+
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --primary: #2563eb;
+    --border: #e5e7eb;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* NAV */
+nav {
+    background: #111827;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+nav a {
+    color: #e5e7eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(135deg, #111827, #1f2937);
+    color: white;
+    padding: 70px 20px;
+    text-align: center;
+}
+
+header h1 { font-size: var(--text-2xl); margin: 0; }
+header h3 { font-size: var(--text-lg); font-weight: 400; color: #cbd5e1; }
+header p {
+    max-width: 640px;
+    margin: 16px auto 0;
+    color: #cbd5e1;
+    font-size: var(--text-md);
+}
+
+/* SEARCH */
+.search-bar {
+    max-width: 1100px;
+    margin: 30px auto 10px;
+    padding: 0 20px;
+}
+
+#search {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+/* LAYOUT */
+.container {
+    max-width: 1100px;
+    margin: 20px auto 60px;
+    padding: 0 20px;
+}
+
+.section {
+    margin-top: 40px;
+}
+
+.section-toggle {
+    width: 100%;
+    text-align: left;
+    padding: 14px 0;
+    font-size: var(--text-lg);
+    font-weight: 600;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+}
+
+.section-content {
+    margin-top: 20px;
+}
+
+/* GRID */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    align-items: stretch;
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    transition: 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    max-width: 420px;
+    width: 100%;
+    justify-self: start;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    background: var(--border);
+}
+
+/* placeholder image stand-in */
+.card-img-placeholder {
+    width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    background: #f1f5f9;
+    color: #94a3b8;
+    flex-shrink: 0;
+}
+
+/* TEXT */
+.card h2 {
+    font-size: 1.1rem;
+    margin: 10px 0 5px;
+}
+
+.card p {
+    font-size: var(--text-sm);
+    color: var(--muted);
+    flex-grow: 1;
+    margin-bottom: 0;
+}
+
+/* TAGS */
+.tags {
+    margin-top: 10px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.tags span {
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--muted);
+}
+
+/* LINK */
+.card a {
+    display: inline-block;
+    margin-top: 10px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* METHODS TOGGLE */
+.methods-toggle {
+    margin-top: 12px;
+    padding: 10px 4px;
+    margin-left: -4px;
+    margin-right: -4px;
+    width: calc(100% + 8px);
+    background: none;
+    border: none;
+    border-top: 1px solid var(--border);
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    -webkit-tap-highlight-color: rgba(37, 99, 235, 0.15);
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.methods-toggle:active {
+    background: var(--bg);
+}
+
+.methods-toggle .chevron {
+    display: inline-block;
+    transition: transform 0.2s ease;
+    font-size: 0.7rem;
+    pointer-events: none;
+}
+
+.methods-toggle[aria-expanded="true"] .chevron {
+    transform: rotate(90deg);
+}
+
+.methods-content {
+    display: none;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+    font-size: 0.85rem;
+    color: var(--text);
+}
+
+.methods-content.open {
+    display: block;
+}
+
+.methods-content h4 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin: 14px 0 6px;
+}
+
+.methods-content h4:first-child {
+    margin-top: 0;
+}
+
+.methods-content p {
+    color: var(--text);
+    flex-grow: 0;
+    margin: 0 0 8px;
+}
+
+.methods-content ul {
+    margin: 0 0 8px;
+    padding-left: 18px;
+}
+
+.methods-content li {
+    margin-bottom: 4px;
+}
+
+.methods-note {
+    background: var(--bg);
+    border-left: 3px solid var(--primary);
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin: 8px 0;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+    font-size: var(--text-sm);
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <a href="/research/">Home</a>
+    <a href="/research/about/">Projects</a>
+    <a href="/research/tools/">Tools</a>
+</nav>
+
+<header>
+    <h1>Tools</h1>
+    <h3>Utilities, Scripts &amp; Interactive Systems</h3>
+    <p>Standalone tools built for research, data wrangling, and archival workflows — ranging from command-line scripts to deployed web apps.</p>
+</header>
+
+<div class="search-bar">
+    <input type="text" id="search" placeholder="Search tools by name, tag, or technology…" />
+</div>
+
+<div class="container">
+
+<div class="section">
+<button type="button" class="section-toggle">Tools</button>
+<div class="section-content">
+<div class="grid">
+
+    <!-- CARD 1 -->
+    <div class="card" data-tags="placeholder tool 1">
+        <div class="card-img-placeholder">⚙️</div>
+        <h2>Tool Name One</h2>
+        <p>Short description of what this tool does, the problem it solves, and who it's for. Replace with your content.</p>
+        <div class="tags"><span>Tag</span><span>Tag</span></div>
+        <a href="#" target="_blank">View Tool →</a>
+        <button type="button" class="methods-toggle" aria-expanded="false">
+            <span class="chevron">▶</span> Details &amp; Usage
+        </button>
+        <div class="methods-content">
+            <h4>What It Does</h4>
+            <p>Placeholder description. Explain the tool's purpose, inputs, and outputs here.</p>
+            <h4>Stack</h4>
+            <ul>
+                <li>Library or technology</li>
+                <li>Library or technology</li>
+            </ul>
+            <div class="methods-note">Add any caveats, data sources, or access notes here.</div>
+        </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="card" data-tags="placeholder tool 2">
+        <div class="card-img-placeholder">🗂️</div>
+        <h2>Tool Name Two</h2>
+        <p>Short description of what this tool does, the problem it solves, and who it's for. Replace with your content.</p>
+        <div class="tags"><span>Tag</span><span>Tag</span></div>
+        <a href="#" target="_blank">View Tool →</a>
+        <button type="button" class="methods-toggle" aria-expanded="false">
+            <span class="chevron">▶</span> Details &amp; Usage
+        </button>
+        <div class="methods-content">
+            <h4>What It Does</h4>
+            <p>Placeholder description. Explain the tool's purpose, inputs, and outputs here.</p>
+            <h4>Stack</h4>
+            <ul>
+                <li>Library or technology</li>
+                <li>Library or technology</li>
+            </ul>
+            <div class="methods-note">Add any caveats, data sources, or access notes here.</div>
+        </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="card" data-tags="placeholder tool 3">
+        <div class="card-img-placeholder">📊</div>
+        <h2>Tool Name Three</h2>
+        <p>Short description of what this tool does, the problem it solves, and who it's for. Replace with your content.</p>
+        <div class="tags"><span>Tag</span><span>Tag</span></div>
+        <a href="#" target="_blank">View Tool →</a>
+        <button type="button" class="methods-toggle" aria-expanded="false">
+            <span class="chevron">▶</span> Details &amp; Usage
+        </button>
+        <div class="methods-content">
+            <h4>What It Does</h4>
+            <p>Placeholder description. Explain the tool's purpose, inputs, and outputs here.</p>
+            <h4>Stack</h4>
+            <ul>
+                <li>Library or technology</li>
+                <li>Library or technology</li>
+            </ul>
+            <div class="methods-note">Add any caveats, data sources, or access notes here.</div>
+        </div>
+    </div>
+
+    <!-- CARD 4 -->
+    <div class="card" data-tags="placeholder tool 4">
+        <div class="card-img-placeholder">🗺️</div>
+        <h2>Tool Name Four</h2>
+        <p>Short description of what this tool does, the problem it solves, and who it's for. Replace with your content.</p>
+        <div class="tags"><span>Tag</span><span>Tag</span></div>
+        <a href="#" target="_blank">View Tool →</a>
+        <button type="button" class="methods-toggle" aria-expanded="false">
+            <span class="chevron">▶</span> Details &amp; Usage
+        </button>
+        <div class="methods-content">
+            <h4>What It Does</h4>
+            <p>Placeholder description. Explain the tool's purpose, inputs, and outputs here.</p>
+            <h4>Stack</h4>
+            <ul>
+                <li>Library or technology</li>
+                <li>Library or technology</li>
+            </ul>
+            <div class="methods-note">Add any caveats, data sources, or access notes here.</div>
+        </div>
+    </div>
+
+    <!-- CARD 5 -->
+    <div class="card" data-tags="placeholder tool 5">
+        <div class="card-img-placeholder">🔍</div>
+        <h2>Tool Name Five</h2>
+        <p>Short description of what this tool does, the problem it solves, and who it's for. Replace with your content.</p>
+        <div class="tags"><span>Tag</span><span>Tag</span></div>
+        <a href="#" target="_blank">View Tool →</a>
+        <button type="button" class="methods-toggle" aria-expanded="false">
+            <span class="chevron">▶</span> Details &amp; Usage
+        </button>
+        <div class="methods-content">
+            <h4>What It Does</h4>
+            <p>Placeholder description. Explain the tool's purpose, inputs, and outputs here.</p>
+            <h4>Stack</h4>
+            <ul>
+                <li>Library or technology</li>
+                <li>Library or technology</li>
+            </ul>
+            <div class="methods-note">Add any caveats, data sources, or access notes here.</div>
+        </div>
+    </div>
+
+    <!-- CARD 6 -->
+    <div class="card" data-tags="placeholder tool 6">
+        <div class="card-img-placeholder">📄</div>
+        <h2>Tool Name Six</h2>
+        <p>Short description of what this tool does, the problem it solves, and who it's for. Replace with your content.</p>
+        <div class="tags"><span>Tag</span><span>Tag</span></div>
+        <a href="#" target="_blank">View Tool →</a>
+        <button type="button" class="methods-toggle" aria-expanded="false">
+            <span class="chevron">▶</span> Details &amp; Usage
+        </button>
+        <div class="methods-content">
+            <h4>What It Does</h4>
+            <p>Placeholder description. Explain the tool's purpose, inputs, and outputs here.</p>
+            <h4>Stack</h4>
+            <ul>
+                <li>Library or technology</li>
+                <li>Library or technology</li>
+            </ul>
+            <div class="methods-note">Add any caveats, data sources, or access notes here.</div>
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
+
+</div>
+
+<footer>
+    © Research Portal — Computational Archival &amp; Spatial Systems
+</footer>
+
+<script>
+const search = document.getElementById("search");
+const cards = document.querySelectorAll(".card");
+
+search.addEventListener("input", e => {
+    const q = e.target.value.toLowerCase();
+    cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        const tags = (card.dataset.tags || "").toLowerCase();
+        card.style.display = (text.includes(q) || tags.includes(q)) ? "flex" : "none";
+    });
+});
+
+document.addEventListener("click", e => {
+    const sectionBtn = e.target.closest(".section-toggle");
+    if (sectionBtn) {
+        const content = sectionBtn.nextElementSibling;
+        content.style.display = content.style.display === "none" ? "block" : "none";
+        return;
+    }
+
+    const methodsBtn = e.target.closest(".methods-toggle");
+    if (methodsBtn) {
+        const content = methodsBtn.nextElementSibling;
+        const expanded = methodsBtn.getAttribute("aria-expanded") === "true";
+        methodsBtn.setAttribute("aria-expanded", String(!expanded));
+        content.classList.toggle("open");
+    }
+});
+</script>
+
+</body>
+</html>
