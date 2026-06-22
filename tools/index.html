@@ -61,6 +61,20 @@ header p {
     font-size: var(--text-md);
 }
 
+/* SEARCH */
+.search-bar {
+    max-width: 1100px;
+    margin: 30px auto 10px;
+    padding: 0 20px;
+}
+
+#search {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
 /* LAYOUT */
 .container {
     max-width: 1100px;
@@ -288,6 +302,10 @@ footer {
     <p>Standalone tools built for research, data wrangling, and archival workflows — ranging from command-line scripts to deployed web apps.</p>
 </header>
 
+<div class="search-bar">
+    <input type="text" id="search" placeholder="Search tools by name, tag, or technology…" />
+</div>
+
 <div class="container">
 
 <div class="section">
@@ -296,24 +314,34 @@ footer {
 <div class="grid">
 
     <!-- CARD 1 -->
-    <div class="card" data-tags="placeholder tool 1">
-        <div class="card-img-placeholder">⚙️</div>
-        <h2>Tool Name One</h2>
-        <p>Short description of what this tool does, the problem it solves, and who it's for. Replace with your content.</p>
-        <div class="tags"><span>Tag</span><span>Tag</span></div>
-        <a href="#" target="_blank">View Tool →</a>
+    <div class="card" data-tags="calendar python pillow pdf heritage family history holidays archival">
+        <div class="card-img-placeholder">📅</div>
+        <h2>Heritage Calendar Maker</h2>
+        <p>Python script that generates print-ready 12-month PDF calendars layering personal photos with public holidays, family milestones, and local historical events — color-coded by source.</p>
+        <div class="tags"><span>Python</span><span>PDF</span><span>Pillow</span><span>Archival</span></div>
         <button type="button" class="methods-toggle" aria-expanded="false">
             <span class="chevron">▶</span> Details &amp; Usage
         </button>
         <div class="methods-content">
             <h4>What It Does</h4>
-            <p>Placeholder description. Explain the tool's purpose, inputs, and outputs here.</p>
+            <p>Each monthly page places a photo in the top half and a full calendar grid below. The grid pulls from four sources simultaneously: official public holidays for any country (US, IT, JP, MX, and 15+ others), a custom set of fixed cultural dates (Epiphany, Ferragosto, St. Patrick's Day, etc.), a <code>family.csv</code> for birthdays, anniversaries, deaths, and immigration dates with auto-calculated ages and years elapsed, and a <code>history.csv</code> for local or regional historical events.</p>
+            <h4>Color Legend</h4>
+            <ul>
+                <li>Country holidays — national-flag color per country</li>
+                <li>Family events — green</li>
+                <li>Historical events — brown</li>
+                <li>Weekends — yellow background</li>
+            </ul>
+            <h4>Configuration</h4>
+            <p>All settings live in <code>config.json</code> next to the script: year, DPI, page size, font sizes, photo folder path, and which countries to load. Running with <code>setup</code> scaffolds the full folder structure and README. Running normally prompts for year and countries interactively, then outputs one PDF per month.</p>
             <h4>Stack</h4>
             <ul>
-                <li>Library or technology</li>
-                <li>Library or technology</li>
+                <li>Pillow — image compositing, grid drawing, PDF output</li>
+                <li>holidays — country public holiday data</li>
+                <li>csv / json — family events and config loading</li>
+                <li>pathlib — cross-platform file handling</li>
             </ul>
-            <div class="methods-note">Add any caveats, data sources, or access notes here.</div>
+            <div class="methods-note">Outputs one 8.5×14" PDF per month at 300 DPI. Images named 01.jpg–12.jpg or by month name are auto-discovered from the configured folder.</div>
         </div>
     </div>
 
@@ -405,54 +433,10 @@ footer {
         </div>
     </div>
 
-        <!-- CARD 6 -->
+    <!-- CARD 6 -->
     <div class="card" data-tags="placeholder tool 6">
         <div class="card-img-placeholder">📄</div>
         <h2>Tool Name Six</h2>
-        <p>Short description of what this tool does, the problem it solves, and who it's for. Replace with your content.</p>
-        <div class="tags"><span>Tag</span><span>Tag</span></div>
-        <a href="#" target="_blank">View Tool →</a>
-        <button type="button" class="methods-toggle" aria-expanded="false">
-            <span class="chevron">▶</span> Details &amp; Usage
-        </button>
-        <div class="methods-content">
-            <h4>What It Does</h4>
-            <p>Placeholder description. Explain the tool's purpose, inputs, and outputs here.</p>
-            <h4>Stack</h4>
-            <ul>
-                <li>Library or technology</li>
-                <li>Library or technology</li>
-            </ul>
-            <div class="methods-note">Add any caveats, data sources, or access notes here.</div>
-        </div>
-    </div>
-
-        <!-- CARD 7 -->
-    <div class="card" data-tags="placeholder tool 7">
-        <div class="card-img-placeholder">📄</div>
-        <h2>Tool Name Seven</h2>
-        <p>Short description of what this tool does, the problem it solves, and who it's for. Replace with your content.</p>
-        <div class="tags"><span>Tag</span><span>Tag</span></div>
-        <a href="#" target="_blank">View Tool →</a>
-        <button type="button" class="methods-toggle" aria-expanded="false">
-            <span class="chevron">▶</span> Details &amp; Usage
-        </button>
-        <div class="methods-content">
-            <h4>What It Does</h4>
-            <p>Placeholder description. Explain the tool's purpose, inputs, and outputs here.</p>
-            <h4>Stack</h4>
-            <ul>
-                <li>Library or technology</li>
-                <li>Library or technology</li>
-            </ul>
-            <div class="methods-note">Add any caveats, data sources, or access notes here.</div>
-        </div>
-    </div>
-    
-    <!-- CARD 8 -->
-    <div class="card" data-tags="placeholder tool 8">
-        <div class="card-img-placeholder">📄</div>
-        <h2>Tool Name Eight</h2>
         <p>Short description of what this tool does, the problem it solves, and who it's for. Replace with your content.</p>
         <div class="tags"><span>Tag</span><span>Tag</span></div>
         <a href="#" target="_blank">View Tool →</a>
