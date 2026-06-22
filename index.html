@@ -448,6 +448,36 @@ footer {
 <div class="section-content">
 <div class="grid">
 
+    <div class="card" data-tags="gis transit food access policy gtfs new jersey">
+    <img src="images/gtfs_food_access_poster.png" class="card-img" alt="08087 Food Access poster — transit routes, swamp ratio bivariate map, and GTFS buffer analysis">
+    <h2>Transit Food Access Analysis</h2>
+    <p>GTFS pipeline and automated Word policy brief generator auditing bus stop proximity to grocery stores in NJ ZIP codes — exposing how county-operated routes absent from federal data feeds cause systematic misclassification as food-accessible.</p>
+    <div class="tags"><span>GIS</span><span>GTFS</span><span>Policy</span><span>Stockton 2026</span></div>      
+    <button type="button" class="methods-toggle" aria-expanded="false">
+        <span class="chevron">&#9658;</span> Methods &amp; Findings
+    </button>
+    <div class="methods-content">
+        <h4>What It Does</h4>
+        <p>Takes any NJ ZIP code as input and produces two outputs: a structured JSON file for downstream modeling and a formatted Word policy brief. For each ZIP it loads the ZCTA boundary, clips NJ Transit GTFS stops to that boundary, auto-discovers all routes serving it, computes geodesic walk distances from each stop to every nearby supermarket (via OSM or a sidecar file), and loads county-operated route data from optional JSON sidecars that are not present in the GTFS feed.</p>
+
+        <h4>Core Finding &mdash; ZIP 08087</h4>
+        <p>Little Egg Harbor appears transit-served in every federal and state dataset because NJ Transit Route 559 runs through it. In practice, the nearest Route 559 stop is beyond the 0.25-mile USDA walkability threshold from both Walmart and Acme. The only route that stops directly at grocery store entrances &mdash; Ocean County&rsquo;s OC 6 &mdash; operates three days per week, enforces a two-bag limit, and is entirely absent from the NJ Transit GTFS feed. It therefore does not appear in the USDA Food Access Research Atlas, NJ Transit trip planners, or any automated proximity model.</p>
+
+        <h4>Policy Brief Generator</h4>
+        <p>The Word document is fully data-driven: all distances, headways, shopping windows, risk labels, and recommendations are computed at run time from GTFS schedule data, ML pipeline scores, and county sidecar files. The brief includes a food environment profile (swamp ratio, desert classification, statewide percentile ranks), per-route service statistics, a walk-distance table flagging stores that exceed the walkability threshold, county transit service profiles with shopping window tables, and tiered recommendations.</p>
+
+        <h4>Libraries</h4>
+        <ul>
+            <li>geopandas + shapely &mdash; ZIP boundary loading, spatial join, stop clipping</li>
+            <li>geopy (geodesic) &mdash; straight-line distances consistent with USDA methodology</li>
+            <li>python-docx &mdash; programmatic Word doc generation with custom table styles and cell-level formatting</li>
+            <li>pandas + zipfile &mdash; GTFS txt parsing, headway computation, service-day extraction</li>
+        </ul>
+
+        <div class="methods-note">County routes (demand-responsive, shuttle, or fixed-schedule services not in the NJ Transit GTFS feed) are supported via ZIP-level JSON sidecar files, making the pipeline extensible to any county in the state without code changes.</div>
+    </div>
+</div>
+
     <div class="card" data-tags="gis atlantic city">
         <img src="images/ACBT_QGIS.png" class="card-img" alt="AC Historic Mapping">
         <h2>Atlantic City Archive</h2>
