@@ -61,6 +61,20 @@ header p {
     font-size: var(--text-md);
 }
 
+/* SEARCH */
+.search-bar {
+    max-width: 1100px;
+    margin: 30px auto 10px;
+    padding: 0 20px;
+}
+
+#search {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
 /* LAYOUT */
 .container {
     max-width: 1100px;
@@ -288,6 +302,10 @@ footer {
     <p>Standalone tools built for research, data wrangling, and archival workflows — ranging from command-line scripts to deployed web apps.</p>
 </header>
 
+<div class="search-bar">
+    <input type="text" id="search" placeholder="Search tools by name, tag, or technology…" />
+</div>
+
 <div class="container">
 
 <div class="section">
@@ -328,24 +346,38 @@ footer {
     </div>
 
     <!-- CARD 2 -->
-    <div class="card" data-tags="placeholder tool 2">
-        <div class="card-img-placeholder">🗂️</div>
-        <h2>Tool Name Two</h2>
-        <p>Short description of what this tool does, the problem it solves, and who it's for. Replace with your content.</p>
-        <div class="tags"><span>Tag</span><span>Tag</span></div>
-        <a href="#" target="_blank">View Tool →</a>
+    <div class="card" data-tags="image batch resize rotate exif pillow zip portal agency workflow automation">
+        <div class="card-img-placeholder">🖼️</div>
+        <h2>Image Batch Processor</h2>
+        <p>Python script that ingests images from any source — iPhone, iPad, Android, USB, Dropbox — auto-corrects EXIF rotation, resizes to a portal-spec resolution, pads to fit, renames in bulk, and packages everything into a dated ZIP ready for upload.</p>
+        <div class="tags"><span>Python</span><span>Pillow</span><span>EXIF</span><span>Automation</span></div>
         <button type="button" class="methods-toggle" aria-expanded="false">
             <span class="chevron">▶</span> Details &amp; Usage
         </button>
         <div class="methods-content">
+            <h4>The Problem It Solves</h4>
+            <p>Images arriving from phones, tablets, and cloud sources carry hidden EXIF orientation tags that most tools silently ignore — causing photos that look correct on-device to appear rotated when uploaded to a CMS or portal. Adobe Bridge and Lightroom require manual import and preset configuration per source; they are not built for unattended intake workflows where assets arrive from multiple contributors in mixed formats at deadline.</p>
             <h4>What It Does</h4>
-            <p>Placeholder description. Explain the tool's purpose, inputs, and outputs here.</p>
+            <ul>
+                <li>Reads EXIF orientation tags and applies the correct rotation before any other processing — degrades gracefully for PNGs and screenshots with no EXIF</li>
+                <li>Resizes each image to fit within the target canvas (e.g. 1920&times;1080) while preserving aspect ratio — never upscales beyond original dimensions</li>
+                <li>Pads images that don't fill the canvas with white space, centered — keeping the portal spec exact without distorting the image</li>
+                <li>Renames all output files sequentially using a user-supplied base name (e.g. <code>heritage_01.jpg</code>, <code>heritage_02.jpg</code>), zero-padded to batch size</li>
+                <li>Skips non-image files and corrupted inputs with a logged warning rather than crashing</li>
+                <li>Packages all processed images into a timestamped ZIP alongside a plain-text log of every file processed, skipped, or failed</li>
+            </ul>
+            <h4>Configuration</h4>
+            <p>Target resolution, output format (JPEG, PNG, TIFF, WebP), padding color, base filename, and sort order (alphabetical or date-modified) are set in <code>config.json</code>. A dry-run mode prints what would happen without writing any files — useful for verifying a batch before committing.</p>
+            <h4>Why JPEG + White Padding</h4>
+            <p>JPEG cannot store transparency — requesting transparent padding with a JPEG output would silently corrupt or flatten the image. The script enforces white padding for JPEG output and logs a warning if the user requests otherwise, rather than failing silently.</p>
             <h4>Stack</h4>
             <ul>
-                <li>Library or technology</li>
-                <li>Library or technology</li>
+                <li>Pillow — EXIF transpose, resize, padding, format conversion</li>
+                <li>zipfile — timestamped archive output</li>
+                <li>pathlib — cross-platform folder traversal, non-image filtering</li>
+                <li>json — config defaults for resolution, format, naming</li>
             </ul>
-            <div class="methods-note">Add any caveats, data sources, or access notes here.</div>
+            <div class="methods-note">Originals are never modified. The script writes all output to a separate folder before zipping. If an output ZIP already exists from a prior run, the new one is timestamped to avoid overwriting.</div>
         </div>
     </div>
 
@@ -415,7 +447,7 @@ footer {
         </div>
     </div>
 
-     <!-- CARD 6 -->
+    <!-- CARD 6 -->
     <div class="card" data-tags="placeholder tool 6">
         <div class="card-img-placeholder">📄</div>
         <h2>Tool Name Six</h2>
@@ -436,8 +468,8 @@ footer {
             <div class="methods-note">Add any caveats, data sources, or access notes here.</div>
         </div>
     </div>
-    
-             <!-- CARD 7 -->
+
+    <!-- CARD 7 -->
     <div class="card" data-tags="placeholder tool 7">
         <div class="card-img-placeholder">📄</div>
         <h2>Tool Name Seven</h2>
@@ -458,7 +490,7 @@ footer {
             <div class="methods-note">Add any caveats, data sources, or access notes here.</div>
         </div>
     </div>
-    
+
     <!-- CARD 8 -->
     <div class="card" data-tags="placeholder tool 8">
         <div class="card-img-placeholder">📄</div>
