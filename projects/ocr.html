@@ -107,6 +107,29 @@ footer { text-align: center; padding: 40px; color: var(--muted); font-size: var(
         </div>
     </div>
 
+    <div class="card" data-tags="accessibility wcag axe-core python govtech compliance">
+        <img src="../images/wcag_pipeline.png" class="card-img" alt="WCAG Accessibility Pipeline">
+        <h2>WCAG Accessibility Pipeline</h2>
+        <p>Automated WCAG 2.1/2.2 compliance scanning pipeline for government and municipal websites, mapping tool findings to actionable remediation guidance.</p>
+        <div class="tags"><span>Accessibility</span><span>Python</span><span>GovTech</span></div>
+        <a href="https://github.com/cvanstey/WCAG_GovTech" target="_blank">View Repository →</a>
+        <button type="button" class="methods-toggle" aria-expanded="false">
+            <span class="chevron">▶</span> Methods &amp; Findings
+        </button>
+        <div class="methods-content">
+            <h4>What It Does</h4>
+            <p>Aggregates accessibility findings from multiple sources &mdash; axe-core automated scans, Lighthouse audits, and Adobe manual review &mdash; and maps each defect to a WCAG success criterion, a responsible party (developer, content author, or vendor), and a severity/litigation-risk tier.</p>
+
+            <h4>Remediation Mapping</h4>
+            <p>A rule-based lookup in <code>remediation_guide.py</code>, backed by a hand-labeled dataset (<code>master_appendix.csv</code>), translates raw rule IDs from each scanning tool into concrete guidance on who should fix an issue and how urgently &mdash; rather than leaving customers with a raw defect list.</p>
+
+            <h4>Design Note: Why Not ML (Yet)</h4>
+            <p>Explored replacing the rule-based dictionary with a classifier to auto-map unrecognized rule IDs as new tools/customers are added. At current data volume &mdash; a few hundred hand-labeled rows, several sparse classes &mdash; a trained model would only memorize what the rule-based lookup already encodes directly, with less transparency and no accuracy gain. Revisiting this is only justified once manual dictionary maintenance, not data scarcity, becomes the actual bottleneck.</p>
+
+            <div class="methods-note">Roadmap: time-series forecasting of each customer's compliance trajectory against DOJ deadlines (April 2027 for large entities, April 2028 for smaller ones), using repeated scan history to flag customers falling behind pace.</div>
+        </div>
+    </div>
+
     <div class="card" data-tags="cybersecurity ocr pdf">
         <img src="../images/naic_plot4_states.png" class="card-img" alt="PDF Extraction">
         <h2>PDF Table Extractions</h2>
