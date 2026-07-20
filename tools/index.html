@@ -380,26 +380,24 @@ footer {
             <div class="methods-note">Originals are never modified. The script writes all output to a separate folder before zipping. If an output ZIP already exists from a prior run, the new one is timestamped to avoid overwriting.</div>
         </div>
     </div>
-
     <!-- CARD 3 -->
-    <div class="card" data-tags="placeholder tool 3">
-        <div class="card-img-placeholder">📊</div>
-        <h2>Tool Name Three</h2>
-        <p>Short description of what this tool does, the problem it solves, and who it's for. Replace with your content.</p>
-        <div class="tags"><span>Tag</span><span>Tag</span></div>
-        <a href="#" target="_blank">View Tool →</a>
+<div class="card" data-tags="streamlit python grants nonprofit automation">
+        <img src="../images/grant_finder.png" class="card-img" alt="Grant Finder & Draft Builder">
+        <h2>Grant Finder &amp; Draft Builder</h2>
+        <p>Streamlit tool that searches Grants.gov, scores opportunities against a food-access relevance model, and auto-generates a templated draft proposal from a saved org profile.</p>
+        <div class="tags"><span>Streamlit</span><span>Python</span><span>Grants</span></div>
         <button type="button" class="methods-toggle" aria-expanded="false">
-            <span class="chevron">▶</span> Details &amp; Usage
+            <span class="chevron">▶</span> Methods &amp; Findings
         </button>
         <div class="methods-content">
             <h4>What It Does</h4>
-            <p>Placeholder description. Explain the tool's purpose, inputs, and outputs here.</p>
-            <h4>Stack</h4>
-            <ul>
-                <li>Library or technology</li>
-                <li>Library or technology</li>
-            </ul>
-            <div class="methods-note">Add any caveats, data sources, or access notes here.</div>
+            <p>Searches Grants.gov by keyword, scores each result by relevance using a weighted food-access/food-security term list, and surfaces days-to-close and eligibility at a glance. Users rate opportunities thumbs up/down and can export ratings as CSV.</p>
+
+            <h4>Draft Generation</h4>
+            <p>For selected opportunities, pulls full synopsis and eligibility data from the Grants.gov API, and &mdash; if a Simpler.Grants.gov API key is supplied &mdash; downloads and extracts text from the actual NOFO/RFP PDF attachment, since the legacy API only exposes a short synopsis. Generates a structured draft (Statement of Need, Org Background, Methodology, Evaluation Plan, etc.) pre-filled from a saved organization profile, exportable as .docx or Markdown.</p>
+
+            <h4>Design Note</h4>
+            <p>The relevance scorer is tuned to this author's own food-access research vocabulary (food desert, SNAP/WIC, nutrition security, elderly/aging), not a general-purpose grant matcher.</p>
         </div>
     </div>
 
