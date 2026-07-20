@@ -1,1 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Document Intelligence Systems — Research Portal</title>
+<style>
+:root {
+    --font-body: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    --text-sm: 0.95rem; --text-md: 1.05rem; --text-lg: 1.25rem; --text-2xl: 2.2rem;
+    --bg: #f6f7fb; --surface: #ffffff; --text: #111827; --muted: #6b7280;
+    --primary: #2563eb; --border: #e5e7eb;
+}
+body { margin: 0; font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; }
+nav { background: #111827; padding: 12px 20px; display: flex; justify-content: center; gap: 24px; }
+nav a { color: #e5e7eb; text-decoration: none; font-weight: 500; }
+header { background: linear-gradient(135deg, #111827, #1f2937); color: white; padding: 70px 20px; text-align: center; }
+header h1 { font-size: var(--text-2xl); margin: 0; }
+header h3 { font-size: var(--text-lg); font-weight: 400; color: #cbd5e1; }
+header p { max-width: 640px; margin: 16px auto 0; color: #cbd5e1; font-size: var(--text-md); }
+.container { max-width: 1100px; margin: 20px auto 60px; padding: 0 20px; }
+.section { margin-top: 40px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; align-items: stretch; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; transition: 0.2s ease; display: flex; flex-direction: column; max-width: 420px; width: 100%; justify-self: start; }
+.card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+.card-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; display: block; }
+.card h2 { font-size: 1.1rem; margin: 10px 0 5px; }
+.card p { font-size: var(--text-sm); color: var(--muted); flex-grow: 1; margin-bottom: 0; }
+.tags { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
+.tags span { font-size: 0.8rem; padding: 2px 8px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); }
+.card a { display: inline-block; margin-top: 10px; color: var(--primary); text-decoration: none; font-weight: 500; }
+.methods-toggle { margin-top: 12px; padding: 10px 4px; margin-left: -4px; margin-right: -4px; width: calc(100% + 8px); background: none; border: none; border-top: 1px solid var(--border); color: var(--primary); font-size: 0.85rem; font-weight: 600; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 6px; -webkit-tap-highlight-color: rgba(37, 99, 235, 0.15); touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+.methods-toggle:active { background: var(--bg); }
+.methods-toggle .chevron { display: inline-block; transition: transform 0.2s ease; font-size: 0.7rem; pointer-events: none; }
+.methods-toggle[aria-expanded="true"] .chevron { transform: rotate(90deg); }
+.methods-content { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); font-size: 0.85rem; color: var(--text); }
+.methods-content.open { display: block; }
+.methods-content h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 14px 0 6px; }
+.methods-content h4:first-child { margin-top: 0; }
+.methods-content p { color: var(--text); flex-grow: 0; margin: 0 0 8px; }
+.methods-content ul { margin: 0 0 8px; padding-left: 18px; }
+.methods-content li { margin-bottom: 4px; }
+.methods-table { width: 100%; border-collapse: collapse; margin: 6px 0 10px; font-size: 0.8rem; }
+.methods-table th, .methods-table td { border: 1px solid var(--border); padding: 4px 6px; text-align: left; }
+.methods-table th { background: var(--bg); font-weight: 600; }
+.methods-note { background: var(--bg); border-left: 3px solid var(--primary); padding: 8px 10px; border-radius: 4px; font-size: 0.82rem; color: var(--muted); margin: 8px 0; }
+footer { text-align: center; padding: 40px; color: var(--muted); font-size: var(--text-sm); }
+</style>
+</head>
+<body>
 
+<nav>
+    <a href="../index.html">Home</a>
+    <a href="../about/">About</a>
+    <a href="../tools/">Tools</a>
+</nav>
+
+<header>
+    <h1>Document Intelligence Systems</h1>
+    <h3>OCR / NLP Pipelines</h3>
+    <p>Multi-stage OCR and document-extraction systems for archival transcription and PDF data mining.</p>
+</header>
+
+<div class="container">
+<div class="section">
+<div class="grid">
+
+    <div class="card" data-tags="ocr pipeline archival">
+        <img src="../images/weymouth_full_page_01_preprocessed.jpg" class="card-img" alt="sample scan for transcription">
+        <h2>OCR Pipeline System</h2>
+        <p>Multi-stage OCR pipeline to transcribe archived documents for upload to Preservica and use in Dublin Core template automation.</p>
+        <div class="tags"><span>OCR</span><span>Pipeline</span></div>
+        <button type="button" class="methods-toggle" aria-expanded="false">
+            <span class="chevron">▶</span> Methods &amp; Findings
+        </button>
+        <div class="methods-content">
+            <h4>Tools</h4>
+            <p>Python pipeline built around two OCR engines &mdash; Tesseract (LSTM) and PaddleOCR (PP-OCRv5) &mdash; with OpenCV and scikit-image for preprocessing. Tested across three historical document scans spanning 1918&ndash;1994.</p>
+
+            <h4>Pipeline Stages</h4>
+            <ul>
+                <li>Image preprocessing (grayscale, bilateral filtering, CLAHE contrast enhancement, adaptive/Sauvola thresholding &mdash; four interchangeable modes)</li>
+                <li>Column detection via bounding-box coordinate ranges, for multi-column newspaper layouts</li>
+                <li>Reading-order sorting and line merging</li>
+                <li>Confidence-based filtering and dictionary-based post-correction (two-pass regex + whole-word substitution)</li>
+                <li>CSV/JSON logging of every run for reproducible comparison</li>
+            </ul>
+
+            <h4>Key Finding: Preprocessing Isn't Always Helpful</h4>
+            <p>On a 1994 newsletter scan that had already been enhanced in Photoshop prior to scanning, raw grayscale input outperformed every automated preprocessing mode &mdash; applying further thresholding to an already-enhanced image degraded results (a "double processing" effect). On an older, unenhanced 1920s newsletter, the opposite was true: CLAHE contrast enhancement performed best. This established a core pipeline principle &mdash; preprocessing must be validated per document, not applied by default.</p>
+
+            <table class="methods-table">
+                <tr><th>Document</th><th>Engine</th><th>Best CER</th><th>Best WER</th><th>Avg Confidence</th></tr>
+                <tr><td>Weymouth Packet (1994)</td><td>Tesseract</td><td>6.6%*</td><td>7.1%*</td><td>89.4%</td></tr>
+                <tr><td>Dorothy Newsletter (1920s)</td><td>Tesseract</td><td>66.8%</td><td>80.2%</td><td>76.8%</td></tr>
+                <tr><td>Dorothy Newsletter (1920s)</td><td>PaddleOCR</td><td>75.4%</td><td>93.6%</td><td>94.4%</td></tr>
+            </table>
+            <p style="font-size:0.75rem;color:var(--muted);margin-top:-6px;">*After two-pass dictionary correction</p>
+
+            <h4>Key Finding: High Confidence ≠ Correct Output</h4>
+            <p>On the older newsletter, PaddleOCR reported much higher per-segment confidence than Tesseract (94&ndash;95% vs 77%) while producing a substantially worse character error rate. The cause was reading-order failure: PaddleOCR was recognizing individual words correctly but assembling multi-column text in the wrong sequence, and separately, was silently downscaling a 9,672px-wide scan to fit a 4,000px internal limit. Confidence scores reflect per-segment recognition quality, not document-level correctness.</p>
+
+            <h4>Debugging Note</h4>
+            <p>A version upgrade to PaddleOCR (PP-OCRv5) changed its output format from indexed lists to a named-field result object. Code written against the old format silently mis-parsed the new one &mdash; returning single characters instead of text segments &mdash; without raising an error. Caught by inspecting raw output structure directly rather than trusting prior API documentation.</p>
+
+            <div class="methods-note">Full experiment log (CSV) and engine-comparison code available on request.</div>
+        </div>
+    </div>
+
+    <div class="card" data-tags="cybersecurity ocr pdf">
+        <img src="../images/naic_plot4_states.png" class="card-img" alt="PDF Extraction">
+        <h2>PDF Table Extractions</h2>
+        <p>PDF extraction pipeline (PyMuPDF + OpenCV + OCR) and interactive Streamlit dashboard scoring breach attack vectors by cost &times; frequency risk tiers, sourced from the 2025 Verizon DBIR and IBM reports.</p>
+        <div class="tags"><span>OCR</span><span>Cybersecurity</span></div>
+        <a href="https://huggingface.co/spaces/CVAnstey/Cybersecurity" target="_blank">View System &rarr;</a>
+        <button type="button" class="methods-toggle" aria-expanded="false">
+            <span class="chevron">▶</span> Methods &amp; Findings
+        </button>
+        <div class="methods-content">
+            <h4>Source Reports</h4>
+            <p>Tables and figures extracted from three published PDFs: the Verizon DBIR 2025, the IBM Cost of a Data Breach Report 2025, and a NAICS sector breakdown. PyMuPDF renders each page; OpenCV contour detection isolates table regions; OCR and regex-based field parsing produce clean tabular data covering attack vectors, breach costs, threat actions, and industry patterns by region.</p>
+
+            <h4>Risk Model</h4>
+            <p>IBM's attack vectors are scored by <strong>risk score = average breach cost &times; frequency of occurrence</strong>, then classified into four quadrants using median splits on both dimensions: Critical (high cost + high frequency), Catastrophic (high cost, lower frequency), Chronic (high frequency, lower cost), and Low.</p>
+
+            <h4>Visualizations</h4>
+            <ul>
+                <li>Bubble chart: frequency vs. average cost, bubble size = risk score, colored by quadrant</li>
+                <li>KPI summary cards for Verizon DBIR top-level metrics</li>
+                <li>Lollipop charts: threat actions and attack patterns by global breach share</li>
+                <li>Sidebar filtering by risk category and report section</li>
+            </ul>
+
+            <h4>Libraries</h4>
+            <ul>
+                <li>PyMuPDF (fitz) + OpenCV &mdash; page rendering and table region isolation</li>
+                <li>pandas / numpy &mdash; currency and percentage parsing, risk scoring</li>
+                <li>scikit-learn (MinMaxScaler) &mdash; normalizing cost and frequency for comparison</li>
+                <li>Streamlit + Matplotlib &mdash; dashboard layout and chart styling</li>
+            </ul>
+
+            <h4>Engineering Note</h4>
+            <p>The launcher uses a single-instance pattern: the script detects whether it's running under Streamlit's interpreter and self-relaunches via subprocess exactly once, preventing duplicate browser tabs when run directly from an IDE.</p>
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
+
+<footer>© Research Portal — Computational Archival & Spatial Systems</footer>
+
+<script>
+document.addEventListener("click", e => {
+    const methodsBtn = e.target.closest(".methods-toggle");
+    if (methodsBtn) {
+        const content = methodsBtn.nextElementSibling;
+        const expanded = methodsBtn.getAttribute("aria-expanded") === "true";
+        methodsBtn.setAttribute("aria-expanded", String(!expanded));
+        content.classList.toggle("open");
+    }
+});
+</script>
+
+</body>
+</html>
