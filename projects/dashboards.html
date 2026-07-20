@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Document Intelligence Systems — Research Portal</title>
+<title>Interactive Dashboards — Research Portal</title>
 <style>
 :root {
     --font-body: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -29,21 +29,6 @@ header p { max-width: 640px; margin: 16px auto 0; color: #cbd5e1; font-size: var
 .tags { margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap; }
 .tags span { font-size: 0.8rem; padding: 2px 8px; border: 1px solid var(--border); border-radius: 999px; color: var(--muted); }
 .card a { display: inline-block; margin-top: 10px; color: var(--primary); text-decoration: none; font-weight: 500; }
-.methods-toggle { margin-top: 12px; padding: 10px 4px; margin-left: -4px; margin-right: -4px; width: calc(100% + 8px); background: none; border: none; border-top: 1px solid var(--border); color: var(--primary); font-size: 0.85rem; font-weight: 600; cursor: pointer; text-align: left; display: flex; align-items: center; gap: 6px; -webkit-tap-highlight-color: rgba(37, 99, 235, 0.15); touch-action: manipulation; user-select: none; -webkit-user-select: none; }
-.methods-toggle:active { background: var(--bg); }
-.methods-toggle .chevron { display: inline-block; transition: transform 0.2s ease; font-size: 0.7rem; pointer-events: none; }
-.methods-toggle[aria-expanded="true"] .chevron { transform: rotate(90deg); }
-.methods-content { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); font-size: 0.85rem; color: var(--text); }
-.methods-content.open { display: block; }
-.methods-content h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 14px 0 6px; }
-.methods-content h4:first-child { margin-top: 0; }
-.methods-content p { color: var(--text); flex-grow: 0; margin: 0 0 8px; }
-.methods-content ul { margin: 0 0 8px; padding-left: 18px; }
-.methods-content li { margin-bottom: 4px; }
-.methods-table { width: 100%; border-collapse: collapse; margin: 6px 0 10px; font-size: 0.8rem; }
-.methods-table th, .methods-table td { border: 1px solid var(--border); padding: 4px 6px; text-align: left; }
-.methods-table th { background: var(--bg); font-weight: 600; }
-.methods-note { background: var(--bg); border-left: 3px solid var(--primary); padding: 8px 10px; border-radius: 4px; font-size: 0.82rem; color: var(--muted); margin: 8px 0; }
 footer { text-align: center; padding: 40px; color: var(--muted); font-size: var(--text-sm); }
 </style>
 </head>
@@ -56,72 +41,52 @@ footer { text-align: center; padding: 40px; color: var(--muted); font-size: var(
   <a href="https://cvanstey.github.io/tools/">Tools</a>
 </nav>
 
+<header>
+    <h1>Interactive Dashboards</h1>
+    <h3>Shiny, Dash &amp; Tableau</h3>
+</header>
 
-<!-- DASHBOARD -->
+<div class="container">
 <div class="section">
-<button type="button" class="section-toggle">Interactive Dashboards</button>
-<div class="section-content">
 <div class="grid">
 
     <div class="card" data-tags="r shiny finance financial metrics dashboard">
-        <img src="images/financial_metrics.png" class="card-img" alt="Financial Metrics Dashboard">
+        <img src="../images/financial_metrics.png" class="card-img" alt="Financial Metrics Dashboard">
         <h2>Financial Metrics Dashboard</h2>
         <p>Interactive R Shiny dashboard exploring financial metrics and economic indicators through dynamic visualizations.</p>
-        <div class="tags">
-            <span>R</span>
-            <span>Shiny</span>
-            <span>Finance</span>
-        </div>
-        <a href="https://interactivenj.shinyapps.io/Financial_Metrics/" target="_blank">
-            View Dashboard →
-        </a>
+        <div class="tags"><span>R</span><span>Shiny</span><span>Finance</span></div>
+        <a href="https://interactivenj.shinyapps.io/Financial_Metrics/" target="_blank">View Dashboard →</a>
+    </div>
 
     <div class="card" data-tags="dash python visualization">
-        <img src="images/migrationUN.png" class="card-img" alt="UN Migration Italy">
+        <img src="../images/migrationUN.png" class="card-img" alt="UN Migration Italy">
         <h2>Migration Dashboard</h2>
         <p>Python Dash system for UN migration flow visualization.</p>
         <div class="tags"><span>Python</span><span>Dash</span></div>
-        <a href="https://huggingface.co/spaces/CVAnstey/DSSA" target="_blank">
-            View Dashboard →
-        </a>
+        <a href="https://huggingface.co/spaces/CVAnstey/DSSA" target="_blank">View Dashboard →</a>
     </div>
 
     <div class="card" data-tags="r shiny new jersey census tax gis">
-        <img src="images/NJ_tax_explore.png" class="card-img" alt="NJ Explorer">
+        <img src="../images/NJ_tax_explore.png" class="card-img" alt="NJ Explorer">
         <h2>NJ Explorer</h2>
         <p>Interactive R Shiny dashboard exploring New Jersey demographics, tax rates, transit, and cultural venues by county.</p>
         <div class="tags"><span>R</span><span>Shiny</span><span>GIS</span><span>Census</span></div>
-        <a href="https://interactivenj.shinyapps.io/NJ_Explorer/" target="_blank">
-            View Dashboard →
-        </a>
+        <a href="https://interactivenj.shinyapps.io/NJ_Explorer/" target="_blank">View Dashboard →</a>
     </div>
 
-</div>
-</div>
-<div class="card" data-tags="tableau higher education ipeds data">
+    <div class="card" data-tags="tableau higher education ipeds data">
         <img src="../images/ipeds_dashboard.png" class="card-img" alt="IPEDS 2018 Analysis Dashboard">
         <h2>IPEDS 2018 Analysis</h2>
         <p>Tableau dashboard analyzing 2018 IPEDS higher education data.</p>
         <div class="tags"><span>Tableau</span><span>Higher Ed</span></div>
-        <a href="https://public.tableau.com/app/profile/cynthia.anstey/viz/IPEDS2018Analysis/Dashboard3" target="_blank">
-            View Dashboard →
-        </a>
+        <a href="https://public.tableau.com/app/profile/cynthia.anstey/viz/IPEDS2018Analysis/Dashboard3" target="_blank">View Dashboard →</a>
     </div>
-</div>
 
 </div>
+</div>
+</div>
 
-<footer>
-    © Research Portal — Computational Archival & Spatial Systems
-</footer>
+<footer>© Research Portal — Computational Archival & Spatial Systems</footer>
 
-<script>
-const search = document.getElementById("search");
-const cards = document.querySelectorAll(".card");
-
-search.addEventListener("input", e => {
-    const q = e.target.value.toLowerCase();
-
-    cards.forEach(card => {
-        const text = card.textContent.toLowerCase();
-        const tags = (card.dataset.tags || "").toLowerCase();
+</body>
+</html>
